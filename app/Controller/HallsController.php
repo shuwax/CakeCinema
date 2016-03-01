@@ -48,10 +48,16 @@ class HallsController extends AppController {
     public function action(){
     if( $this->request->is('ajax') ) {
      // echo $_POST['value_to_send'];
-     //   $value = $this->request->data('value_to_send');
+        CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
+        if($this->Seat->saveAll($this->request->data['Seat']))
+        {
+            $this->Flash->success('elo');
 
-      CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) ); 
-       // echo "ok";
+        }
+        else
+            $this->Flash->error('elo');
+        //$this->set('zmiana',$this->request->data);
+        // echo "ok";
       die();
     }
    }
@@ -109,6 +115,7 @@ class HallsController extends AppController {
            'conditions' => array('Seat.halls_id' => array($id))));
             $this->set('hall',$hall);
             $this->set('seats',$hall_seat);
+        $this->set('zmiana',0);
         if($this->request->is(array('put')))
         {   
             if(!empty($this->data))

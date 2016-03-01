@@ -98,7 +98,7 @@
      
 }
     </style>
-    
+
 
        
     
@@ -136,106 +136,48 @@
             ?>           
     <?php endfor;?>
          </div>
- <?php endfor;?> 
-    
+ <?php endfor;?>
+
+    <button class ="ref">Zapisz</button>
+    <button class="can">Anuluj</button>
+
     <script>
-    $('.miejsce').click(function()
-    {   
-        $(this).toggleClass('miejsce miejsce_puste');
-            
-          var id = $(this).data("id");
-        //status na 0
-        $.ajax({
-             type:"POST",
-             data:{"id":id,"status":0}, 
-             url:"/halls/action/"
-         });
-    });
-    $('.miejsce_puste').click(function()
-    {   
-        $(this).toggleClass('miejsce_puste miejsce');
-        //staus 1
-    });
+        var tab =[];
+        var idx = 0;
+        $('.can').click(function()
+        {
+            alert(tab[idx]);
+            idx++;
+        });
+
+        $('.miejsce,.miejsce_puste').click(function()
+        {
+            if($(this).hasClass('miejsce'))
+            {
+                $(this).addClass('miejsce_puste').removeClass('miejsce');
+                 tab.push({id: $(this).data("id"),status: 0});
+                idx++;
+                //status na 0
+
+            }
+            else
+            {
+                $(this).addClass('miejsce').removeClass('miejsce_puste');
+                //staus na 1
+                tab.push({id: $(this).data("id"),status: 1});
+
+            }
+        });
+        $('.ref').click(function()
+        {
+                $.ajax({
+                type:"POST",
+                data:{"Seat":tab},
+                url:"/halls/action/"
+            });
+        });
+
+
+
     </script>
- 
- 
-    
-    <?php
-     echo $this->Form->end('Zapisz');
- $i = 1;
- $enter = 1; 
- foreach($seats as $seat) {
-                    if($seat['Seat']['status'] == 1)
-                    {
-                        if($enter == $miejsca)
-                        {
-                            echo $this->Form->checkbox('Seat.'.$i.'.status', array("checked" => "checked"), array("empty" => 0));
-                            
-                            $enter=1;
-                        }
-                        else  
-                           
-                            echo "<ul>".$this->Form->checkbox('Seat.'.$i.'.status', array("checked" => "checked"), array("empty" => 0))."</ul>";
-                    }       
-                    else
-                    {
-                        if($enter==$miejsca)
-                        {
-                            echo $this->Form->checkbox('Seat.'.$i.'.status', array("empty" => 0))."</ul>";
-                            $enter=1;
-                        }
-                        else
-                            echo "<ul>".$this->Form->checkbox('Seat.'.$i.'.status', array("empty" => 0))."</ul>";
-                    }
-                    echo $this->Form->input('Seat.'.$i.'.id', array('value' => $seat['Seat']['id'],'hidden' => true));
-                    $i++;        
-                    $enter++;
-                    
-              };  
-    /*
-    echo $this->Form->create('Seat', array('type' => 'put'));
-            foreach($seats as $seat) {
-                    if($seat['Seat']['status'] == 1)
-                    {
-                        if($enter == $miejsca)
-                        {
-                            echo $this->Form->checkbox('Seat.'.$i.'.status', array("checked" => "checked"), array("empty" => 0));
-                            
-                            $enter=1;
-                        }
-                        else  
-                           
-                            echo "<ul>".$this->Form->checkbox('Seat.'.$i.'.status', array("checked" => "checked"), array("empty" => 0))."</ul>";
-                    }       
-                    else
-                    {
-                        if($enter==$miejsca)
-                        {
-                            echo $this->Form->checkbox('Seat.'.$i.'.status', array("empty" => 0))."</ul>";
-                            $enter=1;
-                        }
-                        else
-                            echo "<ul>".$this->Form->checkbox('Seat.'.$i.'.status', array("empty" => 0))."</ul>";
-                    }
-                    echo $this->Form->input('Seat.'.$i.'.id', array('value' => $seat['Seat']['id'],'hidden' => true));
-                    $i++;        
-                    $enter++;
-              };  
-    echo $this->Form->end('Zapisz'); 
-     * 
-     */  
-?>
- </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>    
-                <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Seanse'), array('controller' => 'screening', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Filmy'), array('controller' => 'movies', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Rezerwacje'), array('controller' => 'reservations', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Użytkownicy'), array('controller' => 'users', 'action' => 'index')); ?> </li>   </ul>
- 
-	</ul>
-</div>
            
