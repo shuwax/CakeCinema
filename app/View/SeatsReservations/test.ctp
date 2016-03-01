@@ -1,4 +1,3 @@
-
 <?php
 
 
@@ -24,110 +23,153 @@
           float:left;
           display: -webkit-box;
       }
+.miejsce_zajete
+{
+    width: 20px;
+    height: 20px;
+    float: left;
+    background: gray;
+    margin: 0 1px;
+}
+
       
 </style>
-     <?php                 
-    $i = 1;
-    $enter = 1; 
-    $stat = false;
- echo $this->Form->create('Seat', array('type' => 'put'));
-            foreach($seats as $seat) {
+
+
+
+
+
+
+
+<?php for($i = 1 ; $i <= $rzedy; $i++): ?>
+    <div class="rzad">
+        <div class= "nr-rzad">
+            <span><?php echo $i;?></span>
+        </div>
+        <?php $numer = 1?>
+        <?php for($j = 1 ; $j <= $miejsca ; $j++): ?>
+
+            <?php foreach($seats as $seat)
+            {
+                if($seat['Seat']['num_rown'] == $i && $seat['Seat']['num_seat'] == $j)
+                {
                     if($seat['Seat']['status'] == 1)
                     {
-                        foreach ($rezs as $rez)
+                        foreach($rezs as $rez)
                         {
-                                if($seat['Seat']['id'] == $rez['SeatsReservation']['Seats_id'])
-                                   {
-                                       $stat = true;
-                                       break;                                        
-                                   }
-                        }                                
-                        if($enter == $miejsca)
-                        {
-                                if($stat == true)
-                                {
-                                    echo $this->Form->checkbox('SeatsReservation.'.$i.'.Seats_id',array('disabled'=>true));
-                                }
-                                else 
-                                {
-                                    echo $this->Form->checkbox('SeatsReservation.'.$i.'.Seats_id');
-                                }
-                            $enter=1;
-                        }
-                        else
-                        {
-                            if($stat == true)
+                            if($seat['Seat']['id'] == $rez['SeatsReservation']['Seats_id'])
                             {
-                                    echo "<ul>".$this->Form->checkbox('SeatsReservation.'.$i.'.Seats_id',array('disabled'=>true))."</ul>";
+                                ?>
+                                <div class="miejsce_zajete" data-id="<?php echo $seat['Seat']['id']?>">
+                                    <span class="wartosc"><?php echo "" ;$numer++?></span>
+                                </div>
+                                <?php
                             }
                             else
                             {
-                                echo "<ul>".$this->Form->checkbox('SeatsReservation.'.$i.'.Seats_id')."</ul>";
+                                ?>
+                                <div class="miejsce" data-id="<?php echo $seat['Seat']['id']?>">
+                                    <span class="wartosc"><?php echo $numer;$numer++?></span>
+                                </div>
+                                <?php
                             }
                         }
-                        echo $this->Form->input('Seat.'.$i.'.id', array('value' => $seat['Seat']['id'],'hidden' => true));
-                    }       
+                    }
                     else
                     {
-                        if($enter==$miejsca)
-                        {
-                            echo $this->Form->checkbox('SeatsReservation.'.$i.'.Seats_id', array("empty" => 0 , 'disabled'=>true))."</ul>";
-                            $enter=1;
-                        }
-                        else
-                            echo "<ul>".$this->Form->checkbox('SeatsReservation.'.$i.'..Seats_id', array("empty" => 0,'disabled'=>true))."</ul>";
+                        ?>
+                        <div class="miejsce_puste" data-id="<?php echo $seat['Seat']['id']?>">
+                            <span class="wartosc"></span>
+                        </div>
+                        <?php
                     }
-                    $stat = false;
-                    $i++;        
-                    $enter++;
-              };            
-              
-              
-          ?>
-<div id="bilet">
-    <label id="lab">Ilosc wybranych biletów : </lable>
-    <h1 id="ilosc">0</h1>
-    </br><h1 id="value"></h1>
-</div>
-<div id="ilosc8"></div>
+                    break;
+                }
+            }
+            ?>
+        <?php endfor;?>
+    </div>
+<?php endfor;?>
 
-
-<?php 
-//<input  class="btnSelectAll" title="Submit" type="button" value="Zaznacz wszystkie"/> 
-?>
 
 <script>
-    $("input[type='checkbox']").click(function()
+
+    var tab =[];
+    var idx = 0;
+    var wybrane = 0;
+    $('.can').click(function()
     {
-        var total = $('input[type=checkbox]').filter(':checked').length;
-        //var totalvalue = $('input[type=checkbox]').filter(':checked').attr('name');
-        document.getElementById("ilosc").innerHTML = total;
-       // document.getElementById("value").innerHTML = totalvalue;
+        alert(tab[idx]);
+        idx++;
     });
-    
-    
+
+    $('.miejsce,.miejsce_wybrane').click(function()
+    {
+        if($(this).hasClass('miejsce'))
+        {
+            $(this).addClass('miejsce_wybrane').removeClass('miejsce');
+            tab.push({id: $(this).data("id"),status: 0});
+            idx++;
+            wybrane++;
+            var id = $(this).data("id");
+            var rzad = 1;
+            var miejsce = 1;
+            document.getElementById("ilosc").innerHTML = wybrane;
+
+                var ni = document.getElementById('bilet');
+
+                var newdiv = document.createElement('div');
+
+                newdiv.setAttribute('id',id);
+
+                newdiv.innerHTML = 'Rzad:'+rzad+'/ Miejsce: '+id;
+
+                ni.appendChild(newdiv);
+        }
+        else
+        {
+            $(this).addClass('miejsce').removeClass('miejsce_wybrane');
+            //staus na 1
+            tab.push({id: $(this).data("id"),status: 1});
+            wybrane--;
+            document.getElementById("ilosc").innerHTML = wybrane;
+            var id = $(this).data("id");
+            var d = document.getElementById('bilet');
+
+            var olddiv = document.getElementById(id);
+
+            d.removeChild(olddiv);
+
+
+        }
+    });
+    $('.ref').click(function()
+    {
+        $.ajax({
+            type:"POST",
+            data:{"Seat":tab},
+            url:"/halls/action/",
+            success: function()
+            {
+                window.location.reload();
+            }
+        });
+    });
+
+
+
 </script>
 
 
+<div id="bilet">
+    <lable id="lab">Ilosc wybranych biletów : </lable>
+    <h1 id="ilosc">0</h1>
 
 
-<script>
-    /*
-$(".btnSelectAll").click(function(){
-    //Select All chackboxes having name as order_id[] And Tick it.
-    if($(".btnSelectAll").val() == "Zaznacz wszystkie")
-    {
-        $("input[type='checkbox']").prop('checked', true);
-        $(".btnSelectAll").prop('value', 'Odznacz');
-    }
-    else 
-    {
-        $("input[type='checkbox']").prop('checked', false);
-        $(".btnSelectAll").prop('value', 'Zaznacz wszystkie');
-    }
-});
-*/
-</script>
-<?php
-    echo $this->Form->end('Dalej'); 
-    ?>
+</div>
+
+
+
+
+
+    

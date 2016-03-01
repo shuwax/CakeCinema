@@ -49,13 +49,12 @@ class HallsController extends AppController {
     if( $this->request->is('ajax') ) {
      // echo $_POST['value_to_send'];
         CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
-        if($this->Seat->saveAll($this->request->data['Seat']))
+        if($this->Seat->saveAll($this->request->data['Seat']) || empty($this->request->data))
         {
-            $this->Flash->success('elo');
-
+            $this->Flash->success('Miejsca zostały zmienione');
         }
         else
-            $this->Flash->error('elo');
+            $this->Flash->error('BLAD z miejscami');
         //$this->set('zmiana',$this->request->data);
         // echo "ok";
       die();

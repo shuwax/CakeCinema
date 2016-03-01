@@ -1,107 +1,12 @@
 <div class="setseats index">
+
 	<h2><?php echo __('Sale'); ?></h2> 
         
                  <?php
                     $rzedy = $hall['Hall']['count_rows'];
                     $miejsca = $hall['Hall']['count_seats'] +1;
-                    
                  ?> 
 <h1>Wybierz ułożenie miejsc:</h1>
-                 
-<style type="text/css">
-    ul{
-        float:left;
-        margin:0;
-        list-style:none;
-        padding:0;
-      }      
-</style>
-
-    <style>
-.miejsce{
-    width: 20px;
-    height: 20px;
-    background: #99CC00!important;
-    border-color:#99CC00;
-    float: left;
-    margin: 0 1px;
-}
-.miejsce_puste{
-    width: 20px;
-    height: 20px;
-    float: left;
-    background: green;
-    margin: 0 1px;
-}
-.miejsce span{
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 700;
-    display: inline-block;
-    /* position: absolute; */
-    line-height: 20px;
-    top: -1px;
-    color:white;
-    cursor:pointer;
-    
-}
-.miejsce_puste span{
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 700;
-    display: inline-block;
-    /* position: absolute; */
-    line-height: 20px;
-    top: -1px;
-    cursor:pointer;
-    
-}
-.rzad
-{
-    display: block;
-    margin-bottom: 4px;
-    overflow: hidden;
-    height: 20px;
-    width: 100%;
-}
-.nr-rzad
-{
-    width: 20px;
-    height: 20px;
-    float: left;
-    margin: 0 1px;
-    background-color: #979797;
-    position: relative;
-    color: #FFF;
-}
-.nr-rzad span
-{
-    width: 100%;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 700;
-    display: inline-block;
-    /* position: absolute; */
-    line-height: 20px;
-    top: -1px;
-}
-.miejsce_wybrane {
-     color: black!important;
-     background-color: #0CE9DC;;
-     
-}
-.miejsce_puste {
-     color: black!important;
-     background-color: white;
-     
-}
-    </style>
-
-
-       
-    
     
  <?php for($i = 1 ; $i <= $rzedy; $i++): ?>
      <div class="rzad">
@@ -137,9 +42,22 @@
     <?php endfor;?>
          </div>
  <?php endfor;?>
-
     <button class ="ref">Zapisz</button>
     <button class="can">Anuluj</button>
+
+</div>
+
+    <div class="actions">
+        <h3><?php echo __('Actions'); ?></h3>
+        <ul>
+            <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
+            <li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>
+            <li><?php echo $this->Html->link(__('Seanse'), array('controller' => 'screening', 'action' => 'index')); ?> </li>
+            <li><?php echo $this->Html->link(__('Filmy'), array('controller' => 'movies', 'action' => 'index')); ?> </li>
+            <li><?php echo $this->Html->link(__('Rezerwacje'), array('controller' => 'reservations', 'action' => 'index')); ?> </li>
+            <li><?php echo $this->Html->link(__('Użytkownicy'), array('controller' => 'users', 'action' => 'index')); ?> </li>
+        </ul>
+    </div>
 
     <script>
         var tab =[];
@@ -173,11 +91,12 @@
                 $.ajax({
                 type:"POST",
                 data:{"Seat":tab},
-                url:"/halls/action/"
+                url:"/halls/action/",
+                success: function()
+                {
+                    window.location.reload();
+                }
             });
         });
-
-
-
     </script>
            
