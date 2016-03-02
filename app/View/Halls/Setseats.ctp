@@ -4,7 +4,7 @@
         
                  <?php
                     $rzedy = $hall['Hall']['count_rows'];
-                    $miejsca = $hall['Hall']['count_seats'] +1;
+                    $miejsca = $hall['Hall']['count_seats'];
                  ?> 
 <h1>Wybierz ułożenie miejsc:</h1>
     
@@ -62,6 +62,11 @@
     <script>
         var tab =[];
         var idx = 0;
+        var check = false;
+        function  disableselect()
+        {
+            document.getElementsByClassName("rzad").disabled = true;
+        }
         $('.can').click(function()
         {
             alert(tab[idx]);
@@ -70,20 +75,35 @@
 
         $('.miejsce,.miejsce_puste').click(function()
         {
+            check = false;
             if($(this).hasClass('miejsce'))
             {
                 $(this).addClass('miejsce_puste').removeClass('miejsce');
-                 tab.push({id: $(this).data("id"),status: 0});
-                idx++;
-                //status na 0
-
+                for(var i = 0; i < tab.length ; i++)
+                {
+                    if(tab[i].id == $(this).data("id"))
+                    {
+                        tab.splice(i,1);
+                        check = true;
+                    }
+                }
+                if(check == false)
+                    tab.push({id: $(this).data("id"),status: 0});
             }
             else
             {
                 $(this).addClass('miejsce').removeClass('miejsce_puste');
                 //staus na 1
-                tab.push({id: $(this).data("id"),status: 1});
-
+                for(var i = 0; i < tab.length ; i++)
+                {
+                    if(tab[i].id == $(this).data("id"))
+                    {
+                        tab.splice(i,1);
+                        check = true;
+                    }
+                }
+                if(check == false)
+                    tab.push({id: $(this).data("id"),status: 1});
             }
         });
         $('.ref').click(function()

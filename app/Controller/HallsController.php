@@ -37,7 +37,7 @@ class HallsController extends AppController {
                     'conditions' => array('Hall.Cinemas_id' => $cinema_id),
                     'recursive' => -1
                     ));
-                CakeLog::write('debug', 'myArray22222'.print_r($halls, true) ); 
+               // CakeLog::write('debug', 'myArray22222'.print_r($halls, true) );
                 
 
                 $this->set('subcategories',$halls);
@@ -47,16 +47,12 @@ class HallsController extends AppController {
     
     public function action(){
     if( $this->request->is('ajax') ) {
-     // echo $_POST['value_to_send'];
-        CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
         if($this->Seat->saveAll($this->request->data['Seat']) || empty($this->request->data))
         {
-            $this->Flash->success('Miejsca zostały zmienione');
+           $this->Flash->success('Miejsca zostały zmienione');
         }
         else
             $this->Flash->error('BLAD z miejscami');
-        //$this->set('zmiana',$this->request->data);
-        // echo "ok";
       die();
     }
    }

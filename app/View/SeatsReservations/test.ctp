@@ -1,14 +1,17 @@
+
+<div id="screen_id" value="<?php echo $screen['Screen']['id']?>">
+
+
+</div>
 <?php
-
-
         echo "id ".$screen['Screen']['id']."</br>";
         echo "screening_date ".$screen['Screen']['screening_date']."</br>";
         echo "Halls_id ".$screen['Screen']['Halls_id']."</br>";
         echo "Movies_id ".$screen['Screen']['Movies_id']."</br>";
-   
-            
-                    $rzedy = $hall['Hall']['count_rows'];
-                    $miejsca = $hall['Hall']['count_seats'] +1;
+        echo $hall['Hall']['count_rows'];
+        echo $hall['Hall']['count_seats'];
+$rzedy = $hall['Hall']['count_rows'];
+$miejsca = $hall['Hall']['count_seats'];
              
        ?>             
      <style type="text/css">
@@ -46,7 +49,8 @@
         <div class= "nr-rzad">
             <span><?php echo $i;?></span>
         </div>
-        <?php $numer = 1?>
+        <?php $numer = 1;
+        $wejsce = false;?>
         <?php for($j = 1 ; $j <= $miejsca ; $j++): ?>
 
             <?php foreach($seats as $seat)
@@ -61,19 +65,21 @@
                             {
                                 ?>
                                 <div class="miejsce_zajete" data-id="<?php echo $seat['Seat']['id']?>">
-                                    <span class="wartosc"><?php echo "" ;$numer++?></span>
-                                </div>
-                                <?php
-                            }
-                            else
-                            {
-                                ?>
-                                <div class="miejsce" data-id="<?php echo $seat['Seat']['id']?>">
-                                    <span class="wartosc"><?php echo $numer;$numer++?></span>
+                                    <span class="wartosc"><?php echo "" ;$numer++;$wejsce = true;?></span>
                                 </div>
                                 <?php
                             }
                         }
+                        if($wejsce != true) {
+                            ?>
+                            <div class="miejsce" data-id="<?php echo $seat['Seat']['id'] ?>">
+                                <span class="wartosc"><?php echo $numer;
+                                    $numer++ ?></span>
+                            </div>
+                            <?php
+                        }
+                        $wejsce = false;
+
                     }
                     else
                     {
@@ -91,12 +97,15 @@
     </div>
 <?php endfor;?>
 
+<button class ="rezerwuj">Rezerwuj</button>
+<button class="anuluj">Anuluj</button>
 
 <script>
 
     var tab =[];
     var idx = 0;
     var wybrane = 0;
+    var check = false;
     $('.can').click(function()
     {
         alert(tab[idx]);
@@ -105,10 +114,27 @@
 
     $('.miejsce,.miejsce_wybrane').click(function()
     {
+        check = false;
         if($(this).hasClass('miejsce'))
         {
             $(this).addClass('miejsce_wybrane').removeClass('miejsce');
-            tab.push({id: $(this).data("id"),status: 0});
+            for(var i = 0; i < tab.length ; i++)
+            {
+                if(tab[i].id == $(this).data("id"))
+                {
+                    tab.splice(i,1);
+                    check = true;
+                }
+            }
+            if(check == false)
+                tab.push({id: $(this).data("id")});
+
+
+
+
+
+
+            /*
             idx++;
             wybrane++;
             var id = $(this).data("id");
@@ -125,10 +151,24 @@
                 newdiv.innerHTML = 'Rzad:'+rzad+'/ Miejsce: '+id;
 
                 ni.appendChild(newdiv);
+                */
         }
         else
         {
             $(this).addClass('miejsce').removeClass('miejsce_wybrane');
+            for(var i = 0; i < tab.length ; i++)
+            {
+                if(tab[i].id == $(this).data("id"))
+                {
+                    tab.splice(i,1);
+                    check = true;
+                }
+            }
+            if(check == false)
+                tab.push({id: $(this).data("id")});
+
+
+            /*
             //staus na 1
             tab.push({id: $(this).data("id"),status: 1});
             wybrane--;
@@ -140,20 +180,25 @@
 
             d.removeChild(olddiv);
 
-
+            */
         }
     });
-    $('.ref').click(function()
+    $('.rezerwuj').click(function()
     {
-        $.ajax({
-            type:"POST",
-            data:{"Seat":tab},
-            url:"/halls/action/",
-            success: function()
-            {
-                window.location.reload();
-            }
-        });
+        if(tab.length == 0)
+        {
+            alert("Pusto");
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                data: {"Seat": tab, Screen_id:<?php echo $screen['Screen']['id']?>,Movie_id:<?php echo $screen['Screen']['Movies_id']?>},
+                url: "/Reservations/add/",
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        }
     });
 
 
