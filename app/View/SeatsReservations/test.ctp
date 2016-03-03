@@ -26,14 +26,7 @@ $miejsca = $hall['Hall']['count_seats'];
           float:left;
           display: -webkit-box;
       }
-.miejsce_zajete
-{
-    width: 20px;
-    height: 20px;
-    float: left;
-    background: gray;
-    margin: 0 1px;
-}
+
 
       
 </style>
@@ -73,7 +66,7 @@ $miejsca = $hall['Hall']['count_seats'];
                         if($wejsce != true) {
                             ?>
                             <div class="miejsce" data-id="<?php echo $seat['Seat']['id'] ?>">
-                                <span class="wartosc"><?php echo $numer;
+                                <span id="wartosc"><?php echo $numer;
                                     $numer++ ?></span>
                             </div>
                             <?php
@@ -85,7 +78,7 @@ $miejsca = $hall['Hall']['count_seats'];
                     {
                         ?>
                         <div class="miejsce_puste" data-id="<?php echo $seat['Seat']['id']?>">
-                            <span class="wartosc"></span>
+                            <span id="wartosc"></span>
                         </div>
                         <?php
                     }
@@ -97,15 +90,36 @@ $miejsca = $hall['Hall']['count_seats'];
     </div>
 <?php endfor;?>
 
+<div class="legenda">
+Legenda dla miejsc:</div>
+<div class="miejsce_zajete">
+</div>
+    <p>Miejsce zajete</p>
+<div class="miejsce">
+</div>
+    <p>Miejsce dostepne</p>
+<div class="miejsce_wybrane">
+</div>
+    <p>Miejsce wybrane</p>
+
+
+
+
+
+
+<div id="bilet">
+    <lable id="lab">Ilosc wybranych biletów : </lable>
+    <h1 id="ilosc"> NIE WYBRANO ŻADNYCH MIEJSC</h1>
+</div>
+
 <button class ="rezerwuj">Rezerwuj</button>
 <button class="anuluj">Anuluj</button>
-
 <script>
 
     var tab =[];
     var idx = 0;
     var wybrane = 0;
-    var check = false;
+    var check = false; // zmienna do kontroli czy dany wpis jest juz w tablicy
     $('.can').click(function()
     {
         alert(tab[idx]);
@@ -114,7 +128,13 @@ $miejsca = $hall['Hall']['count_seats'];
 
     $('.miejsce,.miejsce_wybrane').click(function()
     {
+        var id = $(this).data("id");
+        var rzad = $(this).parent().find(".nr-rzad","span").text();
+        rzad = rzad.replace(/\s+/, "");
+        var miejsce = $(this).text();
+        miejsce = miejsce.replace(/\s+/, "");
         check = false;
+
         if($(this).hasClass('miejsce'))
         {
             $(this).addClass('miejsce_wybrane').removeClass('miejsce');
@@ -127,19 +147,10 @@ $miejsca = $hall['Hall']['count_seats'];
                 }
             }
             if(check == false)
-                tab.push({id: $(this).data("id")});
+                tab.push({id: $(this).data("id"),x:rzad,y:miejsce});
 
-
-
-
-
-
-            /*
             idx++;
             wybrane++;
-            var id = $(this).data("id");
-            var rzad = 1;
-            var miejsce = 1;
             document.getElementById("ilosc").innerHTML = wybrane;
 
                 var ni = document.getElementById('bilet');
@@ -148,14 +159,14 @@ $miejsca = $hall['Hall']['count_seats'];
 
                 newdiv.setAttribute('id',id);
 
-                newdiv.innerHTML = 'Rzad:'+rzad+'/ Miejsce: '+id;
+                newdiv.innerHTML = 'Rzad:'+rzad+'/ Miejsce: '+miejsce;
 
                 ni.appendChild(newdiv);
-                */
+
         }
         else
         {
-            $(this).addClass('miejsce').removeClass('miejsce_wybrane');
+            $(this).addClass('miejsce').removeClass('NIE WYBRANO ŻADNYCH MIEJSC');
             for(var i = 0; i < tab.length ; i++)
             {
                 if(tab[i].id == $(this).data("id"))
@@ -165,22 +176,18 @@ $miejsca = $hall['Hall']['count_seats'];
                 }
             }
             if(check == false)
-                tab.push({id: $(this).data("id")});
+                tab.push({id: $(this).data("id"),x: rzad,y: miejsce});
 
-
-            /*
-            //staus na 1
-            tab.push({id: $(this).data("id"),status: 1});
             wybrane--;
-            document.getElementById("ilosc").innerHTML = wybrane;
+            if(wybrane == 0 )
+            document.getElementById("ilosc").innerHTML = " Nie wybrano miejsca";
+            else
+                document.getElementById("ilosc").innerHTML = wybrane;
             var id = $(this).data("id");
             var d = document.getElementById('bilet');
-
             var olddiv = document.getElementById(id);
 
             d.removeChild(olddiv);
-
-            */
         }
     });
     $('.rezerwuj').click(function()
@@ -205,13 +212,6 @@ $miejsca = $hall['Hall']['count_seats'];
 
 </script>
 
-
-<div id="bilet">
-    <lable id="lab">Ilosc wybranych biletów : </lable>
-    <h1 id="ilosc">0</h1>
-
-
-</div>
 
 
 

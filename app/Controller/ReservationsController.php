@@ -43,15 +43,16 @@ class ReservationsController extends AppController
            $this->Reservation->create();
            $data = array(Screening_id => $this->request->data['Screen_id'],Users_id => AuthComponent::user('id'),Movies_id =>
                 $this->request->data['Movie_id']);
+            CakeLog::write('debug', 'myArray22222'.print_r( $this->request->data, true) );
             if($this->Reservation->save($data))
             {
                 $combainarray = array();
                 foreach($this->request->data['Seat'] as $seat)
                 {
                     $combainarray[] = array(Seats_id => $seat['id'],Screening_id => $this->request->data['Screen_id']
-                        ,Reservations_id => $this->Reservation->id);
+                        ,Reservations_id => $this->Reservation->id,x =>$seat['x'] ,y =>$seat['y'] );
                 }
-                CakeLog::write('debug', 'myArray22222'.print_r($combainarray, true) );
+               // CakeLog::write('debug', 'myArray22222'.print_r($combainarray, true) );
                 $this->SeatsReservation->create();
 
                 if($this->SeatsReservation->saveAll($combainarray))

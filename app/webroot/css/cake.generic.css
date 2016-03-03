@@ -84,6 +84,14 @@
 	top: -1px;
 	cursor:pointer;
 }
+.miejsce_zajete
+{
+	width: 20px;
+	height: 20px;
+	float: left;
+	background: gray;
+	margin: 0 1px;
+}
 .rzad
 {
 	display: block;
@@ -113,7 +121,14 @@
 	line-height: 20px;
 	top: -1px;
 }
-
+.miejsce_wybraneLeg
+{
+	color: black!important;
+	background-color: #0CE9DC;
+	width: 20px;
+	height: 20px;
+	margin: 0 1px;
+}
 ul{
 	float:left;
 	margin:0;
