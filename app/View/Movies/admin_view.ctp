@@ -23,7 +23,7 @@
 		</dd>
 		<dt><?php echo __('Picture'); ?></dt>
 		<dd>
-			<?php echo h($movie['Movie']['picture']); ?>
+			<?php echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']); ?></td>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Categories'); ?></dt>

@@ -7,12 +7,7 @@ class HallsController extends AppController {
     
     
     
- /**
- * makehall method
- * Tworzy miejsca w sali o podanych parametrach
- @param string $hallid,$rowns,$seats
- * @return bool
- */
+
     function makehall($hallid,$rowns,$seats) {
         $this->Seat->create();   
         $data = array();//Tablica do przechowywnia danych, które mają zostać zapisne w db.
@@ -37,9 +32,7 @@ class HallsController extends AppController {
                     'conditions' => array('Hall.Cinemas_id' => $cinema_id),
                     'recursive' => -1
                     ));
-               // CakeLog::write('debug', 'myArray22222'.print_r($halls, true) );
-                
-
+               CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
                 $this->set('subcategories',$halls);
                 $this->layout = 'ajax';
     }
@@ -66,13 +59,21 @@ class HallsController extends AppController {
        $dane = $this->Hall->find('all');
        $this->set('halls',$dane);
        $this->set('cinemas',$this->Cinema->find('all'));
-    }   
- /**
+        return $dane;
+    }
+
+    public function admin_index() {
+        $dane = $this->Hall->find('all');
+        $this->set('halls',$dane);
+        $this->set('cinemas',$this->Cinema->find('all'));
+        return $dane;
+    }
+    /**
  * add method
  * 
  * @return void
  */
-     public function add()
+     public function admin_add()
     {   
          $this->set('cinemas',$this->Cinema->find('list'));
             if($this->request->is('post'))
@@ -85,7 +86,7 @@ class HallsController extends AppController {
                                         $this->request->data('Hall.count_seats')))
                                 {
                                     $this->Flash->success('Dodano Sale i Miejsca'); 
-                                    $this->redirect('Setseats/'.$id);
+                                    $this->redirect('setseats/'.$id);
                                 }
                                 else
                                 {
@@ -104,7 +105,7 @@ class HallsController extends AppController {
  @param string $id
  * @return void
  */
-    public function Setseats($id = null) {
+    public function admin_setseats($id = null) {
             $hall = $this->Hall->findByid($id);
             $hall_seat = $this->Seat->find('all', array(
            'conditions' => array('Seat.halls_id' => array($id))));
@@ -132,7 +133,7 @@ class HallsController extends AppController {
  @param string $id
  * @return void
  */
-    public function edit($id) {
+    public function admin_edit($id) {
         
         $this->set('cinemas',$this->Cinema->find('list'));
         $dane = $this->Hall->findByid($id);
@@ -145,7 +146,7 @@ class HallsController extends AppController {
                if($this->makehall($id,$this->request->data('Hall.count_rows'),$this->request->data('Hall.count_seats')))
                {
                             $this->Flash->success('Sala zedytowana.'); 
-                            $this->redirect('Setseats/'.$id);
+                            $this->redirect('setseats/'.$id);
                }
                else 
                    $this->Flash->error('Problem z tworzeniem miejsc na sali.');
@@ -160,7 +161,7 @@ class HallsController extends AppController {
  @param string $id
  * @return void
  */
-    public function delete($id){
+    public function admin_delete($id){
         $this->Hall->id = $id;
         if($this->request->is(array('put','post')))
         {

@@ -3,12 +3,15 @@ App::uses('AppModel', 'Model');
 /**
  * Movie Model
  *
- * @property Categories $Categories
+ *
  */
 class Movie extends AppModel {
 
    public $useTable = 'movies';
-    
+
+	var $actsAs = array(
+		'Upload' => array('filename')
+	);
     
 /**
  * Validation rules

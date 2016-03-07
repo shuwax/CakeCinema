@@ -5,15 +5,13 @@ App::uses('AppController', 'Controller');
 class CinemasController extends AppController {
 
 
-/**
- * index method
- *
- * @return void
- */
+
+
 	public function index() {
 		$this->set('cinemas',$this->Cinema->find('all'));
+		return $this->Cinema->find('all');
 	}
-        
+
         public function admin_index() {
 		$this->set('cinemas',$this->Cinema->find('all'));
 	}
@@ -25,7 +23,7 @@ class CinemasController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		if (!$this->Cinema->exists($id)) {
 			throw new NotFoundException(__('Nierozpoznane Kino'));
 		}
@@ -37,7 +35,7 @@ class CinemasController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Cinema->create();
 			if ($this->Cinema->save($this->request->data)) {
@@ -56,7 +54,7 @@ class CinemasController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {            
+	public function admin_edit($id = null) {
             	if (!$this->Cinema->exists($id)) {
 			throw new NotFoundException(__('Nierozpoznane kino'));
 		}
@@ -82,7 +80,7 @@ class CinemasController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		$this->Cinema->id = $id;
 		if (!$this->Cinema->exists()) {
 			throw new NotFoundException(__('Nierozpoznane kino'));

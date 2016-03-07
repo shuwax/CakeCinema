@@ -8,33 +8,36 @@
 
 class ReservationsController extends AppController
 {
-   var $uses = array('Hall', 'Seat','Reservation','Screen','SeatsReservation');
+   var $uses = array('Hall', 'Seat','Reservation','Screen','SeatsReservation','Movie');
+
     public function index() 
     {
           $dane = $this->Reservation->find('all');
+          $movies = $this->Movie->find('all');
+            $this->set('movies',$movies);
           $this->set('reservations',$dane);
     }
-    
-        public function view($id = null)
+    public function admin_index()
+    {
+        $dane = $this->Reservation->find('all');
+        $movies = $this->Movie->find('all');
+        $this->set('movies',$movies);
+        $this->set('reservations',$dane);
+    }
+    public function indexuser()
+    {
+        $dane = $this->Reservation->find('all');
+        $movies = $this->Movie->find('all');
+        $this->set('movies',$movies);
+        $this->set('reservations',$dane);
+    }
+
+        public function admin_view($id = null)
     {
         $dane = $this->Reservation->findByid($id);
         $this->set('reservation',$dane);
     }
 
-    public function action(){
-        if( $this->request->is('ajax') ) {
-          //  CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
-            //if($this->Seat->saveAll($this->request->data['Seat']) || empty($this->request->data))
-            //{
-            //    $this->Flash->success('Miejsca zostały zmienione');
-           // }
-            //else
-            //    $this->Flash->error('BLAD z miejscami');
-            die();
-        }
-    }
-
-    
       public function add()
     {
         if($this->request->is('ajax'))
@@ -57,8 +60,8 @@ class ReservationsController extends AppController
 
                 if($this->SeatsReservation->saveAll($combainarray))
                 {
-                    $this->Flash->success('WLLLO.');
-                    //$this->redirect('index');
+                    $this->Flash->success('Dodano rezerwacje');
+                    $this->redirect('reservations/indexuser');
                 }
                 else
                 {
@@ -73,7 +76,20 @@ class ReservationsController extends AppController
         }
          //$this->set('dane',$this->request->data);
     }
-    
+
+    public function delete($id = null) {
+        $this->Reservation->id = $id;
+        if (!$this->Reservation->exists()) {
+            throw new NotFoundException(__('Nierozpoznana rezerwacja'));
+        }
+        $this->request->allowMethod('post', 'delete');
+        if ($this->Reservation->delete()) {
+            $this->Flash->success(__('Rezerwacje usunieta'));
+        } else {
+            $this->Flash->error(__('Problem z usunieciem rezerwacji. Spróbuj ponownie'));
+        }
+        return $this->redirect(array('action' => 'indexuser'));
+    }
     
     
 

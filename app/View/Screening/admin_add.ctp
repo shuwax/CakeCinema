@@ -29,7 +29,7 @@
 <?php
 $this->Js->get('#ScreenCinema')->event('change', 
 $this->Js->request(array(
-'controller'=>'Halls',
+'controller'=>'../Halls',
 'action'=>'getByCinema'
 ), array(
 'update'=>'#ScreenHallsId',

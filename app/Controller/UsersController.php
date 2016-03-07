@@ -25,7 +25,7 @@ class UsersController extends AppController {
     public function login() {
     if ($this->request->is('post')) {
         if ($this->Auth->login()) {
-            return $this->redirect($this->Auth->redirectUrl());
+			$this->redirect(array('controller' => 'Pages','action' => 'display'));
         }
         $this->Flash->error(__('Invalid username or password, try again'));
     }
@@ -33,7 +33,7 @@ class UsersController extends AppController {
 
 public function logout() {
     $this->Auth->logout();
-    $this->redirect('/cinemas/');
+    $this->redirect(array('controller' => 'Pages','action' => 'display'));
 }
 
 /**
@@ -45,6 +45,10 @@ public function logout() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->Paginator->paginate());
 	}
+	public function admin_index() {
+		$this->User->recursive = 0;
+		$this->set('users', $this->Paginator->paginate());
+	}
 
 /**
  * view method
@@ -53,7 +57,7 @@ public function logout() {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
@@ -66,7 +70,7 @@ public function logout() {
  *
  * @return void
  */
-	public function add() {
+	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
@@ -85,7 +89,7 @@ public function logout() {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		if (!$this->User->exists($id)) {
 			throw new NotFoundException(__('Invalid user'));
 		}
@@ -109,7 +113,7 @@ public function logout() {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));

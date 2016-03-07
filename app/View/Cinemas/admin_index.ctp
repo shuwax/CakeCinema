@@ -35,8 +35,8 @@
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
-	<ul>    
-                <li><?php echo $this->Html->link(__('wyloguj'), array('controller' => 'users','action' => 'logout')); ?></li>
+	<ul>
+
                 <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
                 <p><li><?php echo $this->Html->link(__('Dodaj Kino'), array('action' => 'add')); ?></li></p>
 		<li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>

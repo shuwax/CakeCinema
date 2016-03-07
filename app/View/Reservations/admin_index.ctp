@@ -47,11 +47,10 @@
 <ul>
     <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
     <li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>
-    <p><li><?php echo $this->Html->link(__('Dodaj Sale'), array('action' => 'add')); ?></li></p>
     <li><?php echo $this->Html->link(__('Seanse'), array('controller' => 'screening', 'action' => 'index')); ?> </li>
     <li><?php echo $this->Html->link(__('Filmy'), array('controller' => 'movies', 'action' => 'index')); ?> </li>
     <li><?php echo $this->Html->link(__('Rezerwacje'), array('controller' => 'reservations', 'action' => 'index')); ?> </li>
-    <li><?php echo $this->Html->link(__('Moje Rezerwacje'), array('controller' => 'reservations', 'action' => 'indexuser')); ?> </li>
+    <li><?php echo $this->Html->link(__('Moje Rezerwacje'), array('controller' => '../reservations', 'action' => 'indexuser')); ?> </li>
     <li><?php echo $this->Html->link(__('Użytkownicy'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 </ul>
 </div>

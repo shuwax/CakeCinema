@@ -25,16 +25,24 @@ class MoviesController extends AppController {
               $dane = $this->Movie->find('all');
               $this->set('movies',$dane);
               $this->set('categories',$this->Category->find('all'));
-           }   
+				return $dane;
+           }
 
-/**
+	public function admin_index() {
+		$dane = $this->Movie->find('all');
+		$this->set('movies',$dane);
+		$this->set('categories',$this->Category->find('all'));
+		return $dane;
+	}
+
+	/**
  * view method
  *
  * @throws NotFoundException
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		if (!$this->Movie->exists($id)) {
 			throw new NotFoundException(__('Invalid cinema'));
 		}
@@ -47,13 +55,13 @@ class MoviesController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function admin_add() {
             $this->set('categories',$this->Category->find('list'));
 		if ($this->request->is('post')) {
 			$this->Movie->create();
 			if ($this->Movie->save($this->request->data)) {
 				$this->Flash->success(__('The movie has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The movie could not be saved. Please, try again.'));
 			}
@@ -68,12 +76,18 @@ class MoviesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
            $this->set('categories',$this->Category->find('list'));
                    $dane = $this->Movie->findByid($id);
+
                    if($this->request->is(array('post','put')))
                    {
                        $this->Movie->id = $id;
+					      if($this->request->data['Movie']['filename']==null)
+					   {
+						   $this->request->data['Movie']['filename'] = $dane['Movie']['filename'];
+					   }
+					   CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
                        if($this->Movie->save($this->request->data))
                        {
                            $this->Flash->success('Film zedytowany.'); 
@@ -92,7 +106,7 @@ class MoviesController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		$this->Movie->id = $id;
 		if (!$this->Movie->exists()) {
 			throw new NotFoundException(__('Invalid movie'));

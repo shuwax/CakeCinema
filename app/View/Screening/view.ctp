@@ -1,52 +1,55 @@
+<div class="seans-widok">
+	<div class="seans-gora">
+				<div class="seans-zdjecie">
+					<?php echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);?>
+				</div>
+				<div class="seans-infoG">
 
-        <div class="cinemas view">
-<h2><?php echo __('Seans: '); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($screen['Screen']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Data seansu'); ?></dt>
-		<dd>
-			<?php echo h($screen['Screen']['screening_date']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nazwa sali'); ?></dt>
-		<dd>
-			<?php
-                                foreach ($halls as $hall)
-                                {
-                                    if($hall['Hall']['id'] == $screen['Screen']['Halls_id'])
-                                        echo $hall['Hall']['name'];
-                                }
-                        ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Tytuł filmu'); ?></dt>
-		<dd>
-                    	<?php
-                        foreach ($movies as $movie)
-                        {
-                            if($movie['Movie']['id'] == $screen['Screen']['Movies_id'])
-                                echo $movie['Movie']['title'];
-                        }
-                        ?>
-			&nbsp;
-		</dd>
-                <dd>
-                    <?php echo "</br>".$this->Html->link(__('Rezerwuj Bilet'), array('controller' => 'seatsreservations','action' => 'test',$screen['Screen']['id'])); ?>
-                </dd>
-	</dl>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-                <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Seanse'), array('controller' => 'screening', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Filmy'), array('controller' => 'movies', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Rezerwacje'), array('controller' => 'reservations', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Użytkownicy'), array('controller' => 'users', 'action' => 'index')); ?> </li>   </ul>
-	</ul>
+					<div class="seans-head">
+						<span><?php echo $movie['Movie']['title']?></span>
+					</div>
+
+					<div class="seans-kon">
+						<?php echo "Organizator: " ?> </br>
+						<?php echo $this->HTML->link($cinema['Cinema']['name'],array('controller'=>'Pages','action'=>'display'));?> </br>
+						<?php echo "Dane kontaktowe: " ?> </br>
+						<?php echo "Telefon: ".$cinema['Cinema']['phone_number']?> </br>
+						<?php echo "Email: ".$cinema['Cinema']['email']?> </br>
+					</div>
+
+					<div class="data">
+					</div>
+
+				</div>
+	</div>
+
+	<div class="seans-rezerwuj">
+		<div class="rezerwuj-lewo">
+			<div class="rez-zdejcie">
+				<?php echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);?>
+			</div>
+			<div class="rez-tytul">
+				<span><?php echo $movie['Movie']['title']?></span></br>
+				<span><?php echo $cinema['Cinema']['name']?></span>
+			</div>
+		</div>
+
+		<div class="rezrwuj-prawo">
+			<div class="info-prawo">
+					<span><?php echo $cinema['Cinema']['city']?></span></br>
+					<span><?php echo $cinema['Cinema']['adress']?></span>
+			</div>
+			<div class="rezerwuj">
+				<span class="Rbilet"><?php echo "</br>".$this->Html->link(__('Rezerwuj Bilet'), array('controller' => 'seatsreservations','action' => 'test',$screen['Screen']['id'])); ?></span>
+			</div>
+				</div>
+
+	</div>
+
+	<div class="opis">
+			<h1>Opis: </h1>
+		<span><?php echo $movie['Movie']['description']?></span></br>
+
+	</div>
+
 </div>

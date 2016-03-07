@@ -1,42 +1,43 @@
 
-<div id="screen_id" value="<?php echo $screen['Screen']['id']?>">
+<div class="seans-widok">
+    <div class="seans-gora">
+        <div class="seans-zdjecie">
+            <?php echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);?>
+        </div>
+        <div class="seans-infoG">
+
+            <div class="seans-head">
+                <span><?php echo $movie['Movie']['title']?></span>
+            </div>
+
+            <div class="seans-kon">
+                <?php echo "Organizator: " ?> </br>
+                <?php echo $this->HTML->link($cinema['Cinema']['name'],array('controller'=>'Pages','action'=>'display'));?> </br>
+                <?php echo "Dane kontaktowe: " ?> </br>
+                <?php echo "Telefon: ".$cinema['Cinema']['phone_number']?> </br>
+                <?php echo "Email: ".$cinema['Cinema']['email']?> </br>
+            </div>
+
+            <div class="data">
+            </div>
+
+        </div>
+    </div>
 
 
-</div>
+
+
+
+
 <?php
-        echo "id ".$screen['Screen']['id']."</br>";
-        echo "screening_date ".$screen['Screen']['screening_date']."</br>";
-        echo "Halls_id ".$screen['Screen']['Halls_id']."</br>";
-        echo "Movies_id ".$screen['Screen']['Movies_id']."</br>";
-        echo $hall['Hall']['count_rows'];
-        echo $hall['Hall']['count_seats'];
 $rzedy = $hall['Hall']['count_rows'];
-$miejsca = $hall['Hall']['count_seats'];
-             
-       ?>             
-     <style type="text/css">
-    ul{
-        float:left;
-        margin:0;
-        list-style:none;
-        padding:0;
-      }
-      #lab
-      {
-          float:left;
-          display: -webkit-box;
-      }
-
-
-      
-</style>
+$miejsca = $hall['Hall']['count_seats'];?>
 
 
 
 
-
-
-
+<div class="miejscaR">
+<div class="wybor-miejsca">
 <?php for($i = 1 ; $i <= $rzedy; $i++): ?>
     <div class="rzad">
         <div class= "nr-rzad">
@@ -89,7 +90,8 @@ $miejsca = $hall['Hall']['count_seats'];
         <?php endfor;?>
     </div>
 <?php endfor;?>
-
+</div>
+</div>
 <div class="legenda">
 Legenda dla miejsc:</div>
 <div class="miejsce_zajete">
@@ -112,14 +114,19 @@ Legenda dla miejsc:</div>
     <h1 id="ilosc"> NIE WYBRANO ŻADNYCH MIEJSC</h1>
 </div>
 
-<button class ="rezerwuj">Rezerwuj</button>
+
+    <div class="rezerwuj">
+        <span class="Rbilet" style="color:white;position: relative;bottom: -17px;">Rezerwuj</span>
+    </div>
 <button class="anuluj">Anuluj</button>
 <script>
 
+    var dzien = new Date().toJSON().slice(0,10);
     var tab =[];
     var idx = 0;
     var wybrane = 0;
     var check = false; // zmienna do kontroli czy dany wpis jest juz w tablicy
+    //alert(dzien);
     $('.can').click(function()
     {
         alert(tab[idx]);
@@ -129,6 +136,7 @@ Legenda dla miejsc:</div>
     $('.miejsce,.miejsce_wybrane').click(function()
     {
         var id = $(this).data("id");
+
         var rzad = $(this).parent().find(".nr-rzad","span").text();
         rzad = rzad.replace(/\s+/, "");
         var miejsce = $(this).text();
@@ -194,7 +202,7 @@ Legenda dla miejsc:</div>
     {
         if(tab.length == 0)
         {
-            alert("Pusto");
+            alert("Nie wybrano miejsc do rezerwacji");
         }
         else {
             $.ajax({
@@ -202,7 +210,7 @@ Legenda dla miejsc:</div>
                 data: {"Seat": tab, Screen_id:<?php echo $screen['Screen']['id']?>,Movie_id:<?php echo $screen['Screen']['Movies_id']?>},
                 url: "/Reservations/add/",
                 success: function () {
-                    window.location.reload();
+                    window.location.href = '../../reservations/indexuser';
                 }
             });
         }
