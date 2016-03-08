@@ -52,6 +52,10 @@ class AppController extends Controller {
      
        public function beforeFilter()
        {
+           if ((isset($this->params['prefix']) && ($this->params['prefix'] == 'admin'))) {
+               $this->layout = 'admin';
+           }
+           else $this->layout = 'default';
             $this->Auth->allow('index', 'view','display');
        }
 

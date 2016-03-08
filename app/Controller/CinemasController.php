@@ -16,13 +16,7 @@ class CinemasController extends AppController {
 		$this->set('cinemas',$this->Cinema->find('all'));
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+
 	public function admin_view($id = null) {
 		if (!$this->Cinema->exists($id)) {
 			throw new NotFoundException(__('Nierozpoznane Kino'));
