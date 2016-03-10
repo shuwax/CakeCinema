@@ -1,13 +1,13 @@
-<div class="hall index">
-	<h2><?php echo __('Sale'); ?></h2>
+<div class="hall admin index">
+	<h2><?php echo __('Sale:'); ?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-                        <th><?php echo $this->Paginator->sort('Kino'); ?></th>
-			<th><?php echo $this->Paginator->sort('Nazwa Sali'); ?></th>
-			<th><?php echo $this->Paginator->sort('Liczba rzędów'); ?></th>
-			<th><?php echo $this->Paginator->sort('Liczba siedzeń'); ?></th>
+			<th><?php echo 'Id'; ?></th>
+             <th><?php echo 'Kino'; ?></th>
+			<th><?php echo 'Nazwa Sali'; ?></th>
+			<th><?php echo 'Liczba rzędów'; ?></th>
+			<th><?php echo 'Liczba siedzeń'; ?></th>
 			<th class="actions"><?php echo __('Opcje'); ?></th>
 	</tr>
 	</thead>
@@ -35,17 +35,3 @@
 	</tbody>
 	</table>
 
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>    
-                <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
-		<li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>
-                <p><li><?php echo $this->Html->link(__('Dodaj Sale'), array('action' => 'add')); ?></li></p>
-                <li><?php echo $this->Html->link(__('Seanse'), array('controller' => 'screening', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Filmy'), array('controller' => 'movies', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Rezerwacje'), array('controller' => 'reservations', 'action' => 'index')); ?> </li>
-                <li><?php echo $this->Html->link(__('Użytkownicy'), array('controller' => 'users', 'action' => 'index')); ?> </li>
- 
-	</ul>
-</div>

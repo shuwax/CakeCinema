@@ -267,6 +267,23 @@ td img
 {
 	width: 195px;
 }
+.login
+{
+	width: 320px;
+	margin: auto;
+	background: #f1f1f1;
+	margin-top: 20px;
+	padding: 26px 24px 0px;
+	font-weight: 400;
+	overflow: hidden;
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,.13);
+	box-shadow: 0px 1px 3px 4px rgba(0,0,0,.13);
+}
+.btnlog
+{
+	margin-top: -51px;
+	margin-left: 28%;
+}
 /*
 	STARY CSS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
@@ -280,7 +297,7 @@ td img
 body {
 	background: white;
 	color: #fff;
-	font-family: 'lucida grande',verdana,helvetica,arial,sans-serif;
+	font-family: "Open Sans",sans-serif;
 	font-size: 90%;
 	margin-right: auto;
 	margin-left: auto;

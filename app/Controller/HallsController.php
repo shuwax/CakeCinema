@@ -63,7 +63,9 @@ class HallsController extends AppController {
     }
 
     public function admin_index() {
-        $dane = $this->Hall->find('all');
+        $dane = $this->Hall->find('all',array(
+            'order' => 'Hall.id DESC'
+        ));
         $this->set('halls',$dane);
         $this->set('cinemas',$this->Cinema->find('all'));
         return $dane;
@@ -107,8 +109,10 @@ class HallsController extends AppController {
  */
     public function admin_setseats($id = null) {
             $hall = $this->Hall->findByid($id);
+            $cinema = $this->Cinema->findByid($hall['Hall']['Cinemas_id']);
             $hall_seat = $this->Seat->find('all', array(
            'conditions' => array('Seat.halls_id' => array($id))));
+            $this->set('cinema',$cinema);
             $this->set('hall',$hall);
             $this->set('seats',$hall_seat);
         $this->set('zmiana',0);

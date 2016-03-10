@@ -29,7 +29,9 @@ class MoviesController extends AppController {
            }
 
 	public function admin_index() {
-		$dane = $this->Movie->find('all');
+		$dane = $this->Movie->find('all',array(
+			'order' => 'Movie.id DESC'
+		));
 		$this->set('movies',$dane);
 		$this->set('categories',$this->Category->find('all'));
 		return $dane;

@@ -8,7 +8,9 @@ class ScreeningController extends AppController
    
     public function index() 
     {      
-        $dane = $this->Screen->find('all');
+        $dane = $this->Screen->find('all',array(
+            'order' => 'Screen.id DESC'
+        ));
         $this->set('movies',$this->Movie->find('all'));
         $this->set('halls',$this->Hall->find('all'));
         $this->set('cinemas',$this->Cinema->find('all'));
@@ -17,7 +19,9 @@ class ScreeningController extends AppController
     }
     public function admin_index()
     {
-        $dane = $this->Screen->find('all');
+        $dane = $this->Screen->find('all',array(
+            'order' => 'Screen.id DESC'
+        ));
         $this->set('movies',$this->Movie->find('all'));
         $this->set('halls',$this->Hall->find('all'));
         $this->set('cinemas',$this->Cinema->find('all'));
@@ -35,17 +39,25 @@ class ScreeningController extends AppController
         $this->set('cinema',$this->Cinema->findByid($hallid['Hall']['Cinemas_id']));
     }
 
-    public function admin_view($id = null)
+
+    public function tabtime()
     {
-        $this->set('screen',$this->Screen->findByid($id));
-        $this->set('movies',$this->Movie->find('all'));
-        $this->set('halls',$this->Hall->find('all'));
+        $tab = array();
+        $godz = 0;
+        $min = 0;
+        for($i =1 ;$i<=144; $i++)
+        {
+           // array_push($tab,)
+        }
     }
-    
+
     public function admin_add() {
+            $this->set('screen',$this->Screen->find('all'));
+            $this->set('movie',$this->Movie->find('all'));
             $this->set('halls',$this->Hall->find('list'));
             $this->set('movies',$this->Movie->find('list'));
             $this->set('cinemas',$this->Cinema->find('list'));
+        CakeLog::write('debug', 'myArray22222'.print_r($this->Screen->find('all'), true));
  
 		if ($this->request->is('post')) {
 			$this->Screen->create();                        

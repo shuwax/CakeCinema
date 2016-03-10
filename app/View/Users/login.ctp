@@ -1,15 +1,14 @@
 
 
-<div class="users form">
-<?php echo $this->Flash->render('auth'); ?>
-<?php echo $this->Form->create('User'); ?>
+
+<div class="login">
+    <?php echo $this->Form->create('User'); ?>
+    <span><strong>Logowanie</strong></span>
     <fieldset>
-        <legend>
-            <?php echo __('Please enter your username and password'); ?>
-        </legend>
-        <?php echo $this->Form->input('username');
-        echo $this->Form->input('password');
-    ?>
+        <?php echo $this->Form->input('username',array('label' => 'Nazwa uzytkownika'));
+        echo $this->Form->input('password',array('label' => 'Hasło'));?>
     </fieldset>
-<?php echo $this->Form->end(__('Login')); ?>
+    <div class="btnlog">
+        <?php echo $this->Form->end(__('Zaloguj sie')); ?>
+    </div>
 </div>

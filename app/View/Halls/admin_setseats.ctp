@@ -1,13 +1,16 @@
-<div class="setseats index">
+<div class="Hall admin setseats">
 
-	<h2><?php echo __('Sale'); ?></h2> 
+
         
                  <?php
                     $rzedy = $hall['Hall']['count_rows'];
                     $miejsca = $hall['Hall']['count_seats'];
                  ?> 
 <h1>Wybierz ułożenie miejsc:</h1>
-    
+    <h2>Kino: <?php echo $cinema['Cinema']['name']?></h2>
+
+        <h2>Nazwa sali: <?php echo $hall['Hall']['name']?></h2>
+<div class="space">
  <?php for($i = 1 ; $i <= $rzedy; $i++): ?>
      <div class="rzad">
         <div class= "nr-rzad">
@@ -42,22 +45,8 @@
     <?php endfor;?>
          </div>
  <?php endfor;?>
-    <button class ="ref">Zapisz</button>
-    <button class="can">Anuluj</button>
-
+    <input class ="ref" type="submit" value="Zapisz">
 </div>
-
-    <div class="actions">
-        <h3><?php echo __('Actions'); ?></h3>
-        <ul>
-            <li><?php echo $this->Html->link(__('Kina'), array('controller' => 'cinemas','action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link(__('Sale'), array('controller' => 'halls', 'action' => 'index')); ?> </li>
-            <li><?php echo $this->Html->link(__('Seanse'), array('controller' => 'screening', 'action' => 'index')); ?> </li>
-            <li><?php echo $this->Html->link(__('Filmy'), array('controller' => 'movies', 'action' => 'index')); ?> </li>
-            <li><?php echo $this->Html->link(__('Rezerwacje'), array('controller' => 'reservations', 'action' => 'index')); ?> </li>
-            <li><?php echo $this->Html->link(__('Użytkownicy'), array('controller' => 'users', 'action' => 'index')); ?> </li>
-        </ul>
-    </div>
 
     <script>
         var tab =[];
@@ -114,7 +103,7 @@
                 url:"/halls/action/",
                 success: function()
                 {
-                    window.location.reload();
+                    window.location.href = "../";
                 }
             });
         });

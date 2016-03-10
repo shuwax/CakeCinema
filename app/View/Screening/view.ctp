@@ -1,4 +1,4 @@
-<div class="seans-widok">
+<div class="seans-view">
 	<div class="seans-gora">
 				<div class="seans-zdjecie">
 					<?php echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);?>

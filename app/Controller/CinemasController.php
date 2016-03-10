@@ -13,7 +13,9 @@ class CinemasController extends AppController {
 	}
 
         public function admin_index() {
-		$this->set('cinemas',$this->Cinema->find('all'));
+		$this->set('cinemas',$this->Cinema->find('all',array(
+			'order' => 'Cinema.id DESC'
+		)));
 	}
 
 

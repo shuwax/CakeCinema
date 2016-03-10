@@ -24,7 +24,7 @@
 
 
 	<div id="footer">
-		<?php// echo $this->Element('footer');?>
+		<?php //echo $this->Element('footer');?>
 	</div>
 
 </div>
