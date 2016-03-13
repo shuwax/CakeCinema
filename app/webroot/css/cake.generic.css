@@ -19,7 +19,36 @@
 	margin:0;
 	padding:0;
 }
+.opisleg
+{
+	padding-left: 5px;
+	display: inline-block;
+	padding-top: 2px;
+	padding-right: 6px;
+}
 
+
+.zajete,.dostepne
+{
+	float: left;
+}
+.kwadrat
+{
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 1px;
+}
+.legenda
+{
+	height: 80px;
+}
+.legenda p
+{
+	padding-top: 10px;
+	color: #000;
+	font-weight: bold;
+}
 /** General Style Info **/
 .informacje-edycja
 {
@@ -87,6 +116,32 @@
 	height: 238px;
 	margin-bottom: 30px;
 }
+#bilet h2
+{
+	margin: 0 0 25px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 23px;
+	color: black;
+}
+#cenaog
+{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	color: #009dd0;
+}
+#cenaog span
+{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	color: #009dd0;
+}
+#iloscbi
+{
+	color: rgb(0, 0, 0);
+	padding-right: 20px;
+	display: inline-block;
+}
 .informacje-zdjecie img
 {
 	width:  143px;
@@ -116,14 +171,33 @@
 	font-size: 22px;
 }
 
-
+#ilosc
+{
+	color: #222222;
+	font-weight: bold;
+	padding-left: 10px;
+}
 .miejscaR
 {
 	background: gainsboro;
 }
+#podB
+{
+	text-transform: uppercase;
+	font-size: 25px;
+}
 .wybor-miejsca
 {
 	margin-left: 42%;
+}
+.calosc
+{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-top: 30px;
+	color: #565656;
+	font-size: 26px;
 }
 .Rbilet a
 {
@@ -138,6 +212,7 @@
 	height: 65px;
 	text-align: center;
 	font-size: 18px;
+
 }
 .info-prawo
 {

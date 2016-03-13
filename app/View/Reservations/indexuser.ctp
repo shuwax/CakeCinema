@@ -54,7 +54,7 @@
 				<span class="informacje-film">Kino: <?php echo $nazwakina?> </span></br>
 				<span class="informacje-film">Sala:  <?php echo $nazwasali?> </span></br>
 				<span class="informacje-film">Ilosc miejsc: <?php echo $reservation['Reservation']['count_seats_reserv']?></span>
-				<span class="informacje-film">Cena: </span></br>
+				<span class="informacje-film">Cena: <?php echo $reservation['Reservation']['price']. "PLN"?> </span></br>
 			</div>
 		</div>
 

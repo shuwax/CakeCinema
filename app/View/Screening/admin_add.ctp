@@ -13,12 +13,13 @@
 				<div id="sala"></div>
 				<div id="dzien"></div>
 				<div id="pokazy"></div>
-
 		</div>
 
 		<?php
-	echo $this->Form->time('time',array('label' => 'Godzina'));
+		echo $this->Form->time('time',array('label' => 'Godzina'));
 		echo $this->Form->input('Movies_id',array('label' => 'Film','empty'=>'Wybierz film..'));
+		echo $this->Form->input('price_norm',array('label' => 'Cena za bilet normalny'));
+		echo $this->Form->input('price_hp',array('label' => 'Cena za bilet ulgowy'));
 	?>
 	</fieldset>
 	<div id="GodzinyKonflikt">
