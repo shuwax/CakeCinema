@@ -1,5 +1,12 @@
 
-
+#status
+{
+	position: relative;
+	text-align: center;
+	font-size: 28px;
+	color: white;
+	font-weight: bold;
+}
 .czas tr
 {
 	height: 0px !important;
@@ -139,6 +146,10 @@
 	float: left;
 	padding: 0px 0px 0px 0px;
 	position: relative;
+}
+#GodzinyKonflikt
+{
+	border-radius: 10px;
 }
 .miejsce{
 	width: 20px;

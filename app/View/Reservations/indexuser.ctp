@@ -1,45 +1,72 @@
-<div  class="rezerwacje">
-	<h2><?php echo __('Moje Rezerwacje'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-		<thead>
-		<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('Ilosc zarezerwowanych miejsc'); ?></th>
-			<th><?php echo $this->Paginator->sort('Status rezerwacji'); ?></th>
-			<th><?php echo $this->Paginator->sort('Seans'); ?></th>
-			<th><?php echo $this->Paginator->sort('Film'); ?></th>
-			<th class="actions"><?php echo __('Opcje'); ?></th>
-		</tr>
-		</thead>
-		<tbody>
-		<?php foreach ($reservations  as $reservation): ?>
+<div class="rezerwacjeurzytkownika">
+	<h2>Moje Rezerwacje</h2>
+<?php
+	$tytul;
+	$data;
+	$nazwasali="";
+	$nazwakina;
+	$miasto;
+	$ulica;
+	$czas;
+?>
+	<?php foreach ($reservations  as $reservation): ?>
 
-			<?php if($reservation['Reservation']['Users_id'] == AuthComponent::user('id')) :?>
-			<tr>
-				<td><?php echo h($reservation['Reservation']['id']); ?>&nbsp;</td>
-				<td><?php echo h($reservation['Reservation']['count_seats_reserv']); ?>&nbsp;</td>
-				<td><?php echo h($reservation['Reservation']['statusR']); ?>&nbsp;</td>
-				<td><?php echo $this->Html->link(__('Pokaż seans'), array('controller'=>'Screening','action' => 'view', $reservation['Reservation']['Screening_id']))?></td>
-
-
-
+	<?php if($reservation['Reservation']['Users_id'] == AuthComponent::user('id')) :?>
+	<div class="informacje">
+		<div class="informacje-gora">
+			<div class="informacje-zdjecie">
 				<?php foreach ($movies as $movie): ?>
 					<?php if($movie['Movie']['id'] == $reservation['Reservation']['Movies_id'])
 					{
-						?> <td> <?php echo $movie['Movie']['title'];?></td><?php
+						echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);
+						$tytul = $movie['Movie']['title'];
 					}
 					?>
 				<?php endforeach; ?>
+			</div>
+			<div class="informacje-info">
+				<span class="informacje-film">Film: <?php echo $tytul?> </span></br>
 
-				<td class="actions">
-					<?php echo $this->Html->link(__('Pokaż układ zarezerwowanych miejsc'), array('action' => 'Setseats', $reservation['Reservation']['id']))?>
-					<?php echo $this->Html->link(__('Edytuj rezerwacje'), array('action' => 'edit', $reservation['Reservation']['id'])); ?>
-					<?php echo $this->Form->postLink(__('Usuń rezerwacje'), array('action' => 'delete', $reservation['Reservation']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $reservation['Reservation']['id']))); ?>
-				</td>
-			</tr>
-			<?php endif;?>
-		<?php endforeach; ?>
-		</tbody>
-	</table>
+				<?php
+
+				foreach($screening as $screen) {
+					if($screen['Screen']['id'] == $reservation['Reservation']['Screening_id']) {
+						$data = $screen['Screen']['screening_date'];
+						$czas =  $screen['Screen']['time'];
+						foreach ($halls as $hall) {
+							if ($hall['Hall']['id'] == $screen['Screen']['Halls_id']) {
+								$nazwasali = $hall['Hall']['name'];
+								foreach ($cinemas as $cinema) {
+									if ($cinema['Cinema']['id'] == $hall['Hall']['Cinemas_id']) {
+										$miasto = $cinema['Cinema']['city'];
+										$ulica = $cinema['Cinema']['adress'];
+										$nazwakina = $cinema['Cinema']['name'];
+									}
+								}
+							}
+						}
+					}
+				}
+				?>
+				<span class="informacje-film">Data: <?php echo $data.' ,godz. '.$czas?> </span></br>
+				<span class="informacje-film">Miasto: <?php echo $miasto?> </span></br>
+				<span class="informacje-film">Ulica: <?php echo $ulica?> </span></br>
+				<span class="informacje-film">Kino: <?php echo $nazwakina?> </span></br>
+				<span class="informacje-film">Sala:  <?php echo $nazwasali?> </span></br>
+				<span class="informacje-film">Ilosc miejsc: <?php echo $reservation['Reservation']['count_seats_reserv']?></span>
+				<span class="informacje-film">Cena: </span></br>
+			</div>
+		</div>
+
+
+		<div class="informacje-akcja">
+			<div class="informacje-edycja"><?php echo $this->Html->link(__('Modyfikuj'), array('action' => 'edit', $screen['Screen']['id'])); ?></div>
+			<div class="informacje-usun"><?php echo $this->Form->postLink(__('Usuń'), array('action' => 'delete', $reservation['Reservation']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $reservation['Reservation']['id']))); ?></div>
+			<div class="informacje-pokaz"><?php echo $this->Html->link(__('Wykaz miejsc'), array('action' => 'seats', $reservation['Reservation']['id'])); ?></div>
+
+		</div>
+	</div>
+		<?php endif?>
+	<?php endforeach?>
+
 </div>
-

@@ -54,10 +54,11 @@ class ScreeningController extends AppController
     public function admin_add() {
             $this->set('screen',$this->Screen->find('all'));
             $this->set('movie',$this->Movie->find('all'));
+            $this->set('hall',$this->Hall->find('all'));
             $this->set('halls',$this->Hall->find('list'));
             $this->set('movies',$this->Movie->find('list'));
             $this->set('cinemas',$this->Cinema->find('list'));
-        CakeLog::write('debug', 'myArray22222'.print_r($this->Screen->find('all'), true));
+        CakeLog::write('debug', 'myArray22222'.print_r($this->Hall->find('all'), true));
  
 		if ($this->request->is('post')) {
 			$this->Screen->create();                        
@@ -73,7 +74,11 @@ class ScreeningController extends AppController
 	}
         
 	public function admin_edit($id = null) {
-                $dane = $this->Screen->findByid($id);
+        $dane = $this->Screen->findByid($id);
+        $this->set('editid',$id);
+        $this->set('screen',$this->Screen->find('all'));
+        $this->set('movie',$this->Movie->find('all'));
+        $this->set('hall',$this->Hall->find('all'));
         $this->set('halls',$this->Hall->find('list'));
         $this->set('movies',$this->Movie->find('list'));
         $this->set('cinemas',$this->Cinema->find('list'));

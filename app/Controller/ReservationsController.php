@@ -8,13 +8,13 @@
 
 class ReservationsController extends AppController
 {
-   var $uses = array('Hall', 'Seat','Reservation','Screen','SeatsReservation','Movie');
+   var $uses = array('Hall', 'Seat','Reservation','Screen','SeatsReservation','Movie','Cinema');
 
     public function index() 
     {
           $dane = $this->Reservation->find('all');
           $movies = $this->Movie->find('all');
-            $this->set('movies',$movies);
+          $this->set('movies',$movies);
           $this->set('reservations',$dane);
     }
     public function admin_index()
@@ -23,13 +23,21 @@ class ReservationsController extends AppController
         $movies = $this->Movie->find('all');
         $this->set('movies',$movies);
         $this->set('reservations',$dane);
+        $screening = $this->Screen->find('all');
+        $this->set('screening',$screening);
     }
     public function indexuser()
     {
         $dane = $this->Reservation->find('all');
         $movies = $this->Movie->find('all');
+        $halls = $this->Hall->find('all');
+        $cinemas = $this->Cinema->find('all');
+        $screening = $this->Screen->find('all');
         $this->set('movies',$movies);
         $this->set('reservations',$dane);
+        $this->set('halls',$halls);
+        $this->set('cinemas',$cinemas);
+        $this->set('screening',$screening);
     }
 
         public function admin_view($id = null)
@@ -90,9 +98,60 @@ class ReservationsController extends AppController
         }
         return $this->redirect(array('action' => 'indexuser'));
     }
-    
-    
 
-    
+
+    public function admin_seats($id = null) {
+        $seatrezervation = $this->SeatsReservation->findByReservations_id($id);
+
+        $screenid =  $seatrezervation['SeatsReservation']['Screening_id'];
+
+        $screen = $this->Screen->findByid($screenid);
+        $this->set('hall',$this->Hall->findByid($screen['Screen']['Halls_id']));
+        $dane = $this->Screen->findByid($screenid);
+        $this->set('screen',$dane);
+
+        $hall_seat = $this->Seat->find('all', array(
+            'conditions' => array('Seat.halls_id' => array($dane['Screen']['Halls_id']))));
+        $this->set('seats',$hall_seat);
+
+
+        $rez = $this->SeatsReservation->find('all', array(// miejsca zajete
+            'conditions' => array('SeatsReservation.Screening_id' => array($screenid))));
+
+        $this->set('rezs',$rez);
+
+        $ownerseatId = $this->SeatsReservation->find('all', array(//
+            'conditions' => array('SeatsReservation.Reservations_id' => array($id))));
+
+        $this->set('ownerseatId',$ownerseatId);
+    }
+
+    public function seats($id = null)
+    {
+        $seatrezervation = $this->SeatsReservation->findByReservations_id($id);
+        $this->set('id',$this->Reservation->findByid($id));
+        CakeLog::write('debug', 'myArray22222'.print_r( $this->Reservation->findByid($id), true) );
+        $screenid =  $seatrezervation['SeatsReservation']['Screening_id'];
+
+        $screen = $this->Screen->findByid($screenid);
+        $this->set('hall',$this->Hall->findByid($screen['Screen']['Halls_id']));
+        $dane = $this->Screen->findByid($screenid);
+        $this->set('screen',$dane);
+
+        $hall_seat = $this->Seat->find('all', array(
+            'conditions' => array('Seat.halls_id' => array($dane['Screen']['Halls_id']))));
+        $this->set('seats',$hall_seat);
+
+
+        $rez = $this->SeatsReservation->find('all', array(// miejsca zajete
+            'conditions' => array('SeatsReservation.Screening_id' => array($screenid))));
+
+        $this->set('rezs',$rez);
+
+        $ownerseatId = $this->SeatsReservation->find('all', array(//
+            'conditions' => array('SeatsReservation.Reservations_id' => array($id))));
+        $this->set('ownerseatId',$ownerseatId);
+    }
+
 }
 

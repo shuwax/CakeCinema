@@ -26,18 +26,6 @@ class HallsController extends AppController {
                 return false;                                
     }
     
-    public function getByCinema() {
-                $cinema_id = $this->request->data['Screen']['Cinema'];
-                $halls = $this->Hall->find('list',array(
-                    'conditions' => array('Hall.Cinemas_id' => $cinema_id),
-                    'recursive' => -1
-                    ));
-               CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
-                $this->set('subcategories',$halls);
-                $this->layout = 'ajax';
-    }
-    
-    
     public function action(){
     if( $this->request->is('ajax') ) {
         if($this->Seat->saveAll($this->request->data['Seat']) || empty($this->request->data))

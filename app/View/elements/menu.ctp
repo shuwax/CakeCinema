@@ -4,8 +4,7 @@
     <li><?php echo $this->HTML->link('Kategorie',array('controller'=>'Pages','action'=>'display'));?></li>
     <li><?php echo $this->HTML->link('Kontakt',array('controller'=>'Pages','action'=>'display'));?></li>
     <?php if(AuthComponent::user()) :?>
-        <li><?php echo $this->HTML->link(AuthComponent::user('username'),
-            array('controller'=>'reservations','action'=>'indexuser'));?></li>
+        <li><?php echo $this->HTML->link('Twoje rezerwacje',array('controller'=>'reservations','action'=>'indexuser'));?></li>
         <li><?php echo $this->HTML->link('Wyloguj',array('controller'=>'Users','action'=>'logout'));?></li>
     <?php endif?>
     <?php if(!AuthComponent::user()) :?>

@@ -21,6 +21,102 @@
 }
 
 /** General Style Info **/
+.informacje-edycja
+{
+	background: green;
+	text-align: center;
+	width: 135px;
+	float: left;
+	position: relative;
+	left: 25px;
+}
+.informacje-edycja a
+{
+	color:white;
+	text-decoration: none;
+}
+.informacje-pokaz
+{
+	background: blue;
+	text-align: center;
+	width: 145px;
+	float: left;
+	position: relative;
+	left: 62px;
+}
+.informacje-pokaz a
+{
+	color:white;
+	text-decoration: none;
+}
+
+.informacje-usun
+{
+	background: red;
+	text-align: center;
+	width: 88px;
+	float: left;
+	position: relative;
+	left: 43px;
+}
+.informacje-usun a
+{
+	color:white;
+	text-decoration: none;
+}
+.informacje-akcja
+{
+	font-size: 18px;
+}
+.informacje
+{
+	background: gainsboro;
+}
+.informacje-gora
+{
+	font-size: 26px;
+
+}
+.informacje-info
+{
+	left: 19px;
+	position: relative;
+}
+
+.informacje{
+	height: 238px;
+	margin-bottom: 30px;
+}
+.informacje-zdjecie img
+{
+	width:  143px;
+	float: left;
+}
+.data
+{
+	float: right;
+	position: relative;
+	background: gainsboro;
+	text-align: center;
+}
+.tydzien
+{
+	font-size: 20px;
+}
+.dzien
+{
+	font-size: 40px;
+}
+.Miesiacrok
+{
+	font-size: 22px;
+}
+.godzina
+{
+	font-size: 22px;
+}
+
+
 .miejscaR
 {
 	background: gainsboro;
@@ -41,10 +137,11 @@
 	background: #009dd0;
 	height: 65px;
 	text-align: center;
+	font-size: 18px;
 }
 .info-prawo
 {
-
+	font-size: 17px;
 	float: left;
 }
 .seans-rezerwuj
@@ -54,8 +151,11 @@
 }
 .rez-tytul
 {
-	width: 383px;
-	height: 56px;
+	position: relative;
+	font-size: 16px;
+	float: left;
+	left: 7px;
+	width: 300px;
 }
 .rezerwuj-lewo
 {
@@ -73,7 +173,6 @@
 }
 .seans-infoG
 {
-	float: left;
 	overflow: hidden;
 	padding-left: 30px;
 }
@@ -90,10 +189,18 @@
 }
 #header ul li
 {
-	margin: 15px 50px 15px 30px;
+	margin: 17px 50px 15px 24px;
 	position: relative;
 
 }
+.opis
+{
+	font-size: 18px;
+	line-height: 1.428571;
+	position: relative;
+	top: 5px;
+}
+
 .tytul
 {
 	color: rgb(0, 157, 208);
@@ -119,7 +226,16 @@
 	background-color: gainsboro;
 	text-align: center;
 }
-
+.seans-head
+{
+	font-size: 30px;
+	text-align: center;
+}
+.seans-kon
+{
+	float: left;
+	font-size: 20px;
+}
 .seans-kategoria
 {
 	background-color: #04bf88;

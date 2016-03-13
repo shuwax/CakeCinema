@@ -8,6 +8,7 @@
 			<th><?php echo 'Nazwa Sali'; ?></th>
             <th><?php echo 'Film'; ?></th>
 			<th><?php echo 'Data seansu'; ?></th>
+             <th><?php echo 'Godzina'; ?></th>
 			<th class="actions"><?php echo __('Opcje'); ?></th>
 	</tr>
 	</thead>
@@ -42,9 +43,9 @@
                                 }
                          ?>
                         <?php endforeach; ?>
-                <td><?php echo h($screen['Screen']['screening_date']); ?>&nbsp;</td>           
-                       
-		<td class="actions">
+                <td><?php echo h($screen['Screen']['screening_date']); ?>&nbsp;</td>
+        <td><?php echo h($screen['Screen']['time']); ?>&nbsp;</td>
+        <td class="actions">
                     <?php echo $this->Html->link(__('Pokaż'), array('controller'=> '../screening','action' => 'view', $screen['Screen']['id'])); ?>
                     <?php echo $this->Html->link(__('Edytuj'), array('action' => 'edit', $screen['Screen']['id'])); ?>
 		    <?php echo $this->Form->postLink(__('Usuń'), array('action' => 'delete', $screen['Screen']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $screen['Screen']['id']))); ?>

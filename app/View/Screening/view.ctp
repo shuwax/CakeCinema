@@ -18,6 +18,20 @@
 					</div>
 
 					<div class="data">
+						<?php $data = $screen['Screen']['screening_date'];
+						$dat = date('N', strtotime($data));
+						$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
+						$dzien = date('d', strtotime($data));
+						?>
+							<div class="tydzien"><?php echo $dni_tygodnia[$dat-1]?></div>
+							<div class="dzien"><?php echo  $dzien?></div>
+						<div class="Miesiacrok"><?php
+							$dzien = date('m Y', strtotime($data));
+							$dzien2 = date('Y', strtotime($data));
+							$miesiac = array('Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień');
+							echo $miesiac[$dzien-1].' '.$dzien2;
+							?></div>
+						<div class="godzina"><?php echo substr($screen['Screen']['time'],0,5)?></div>
 					</div>
 
 				</div>
@@ -36,6 +50,13 @@
 
 		<div class="rezrwuj-prawo">
 			<div class="info-prawo">
+				<?php
+				$dzien = date('N', strtotime($data));
+				$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
+				?>
+				<span><?php echo $dzien = date('Y-m-d', strtotime($data)).', godz. '.date('H:i', strtotime($data)). ' ('.$dni_tygodnia[$dzien-1].')';?></span></br>
+
+
 					<span><?php echo $cinema['Cinema']['city']?></span></br>
 					<span><?php echo $cinema['Cinema']['adress']?></span>
 			</div>
