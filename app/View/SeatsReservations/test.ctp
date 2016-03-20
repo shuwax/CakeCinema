@@ -164,7 +164,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
     $('.miejsce,.miejsce_wybrane').click(function()
     {
         var id = $(this).data("id");
-
+        var obj = this;
         var rzad = $(this).parent().find(".nr-rzad","span").text();
         rzad = rzad.replace(/\s+/, "");
         var miejsce = $(this).text();
@@ -187,9 +187,9 @@ $miejsca = $hall['Hall']['count_seats'];?>
             idx++;
             wybrane++;
 
+            // Dynamiczne tworzenie miejsca na stornie(div)
 
             var ni = document.getElementById('bilet');
-
             var ticketarea = document.createElement('div');
             ticketarea.setAttribute('id',id);
 
@@ -200,7 +200,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
 
             var newdiv = document.createElement('div');
             newdiv.setAttribute('id','tickettext');
-            //newdiv.style.textAlign = 'center';
+            newdiv.style.textAlign = 'center';
             newdiv.innerHTML = "<span id=podB>Rzad " +rzad+"Miejsce "+miejsce+"</span>";
 
 
@@ -211,10 +211,24 @@ $miejsca = $hall['Hall']['count_seats'];?>
                 "<option value="+cena_ulg+">"+cena_ulg+" PLN - Ulgowy</option>" +
                 "</select>";
 
+
+            var button = document.createElement('div');
+            button.setAttribute('id',"button");
+
+            var buttonid = document.createElement('div');
+            buttonid.setAttribute('id',"button"+id)
+            buttonid.setAttribute('onclick',"DeleteSelectedSeat("+id+")");
+            buttonid.style.backgroundImage = "url('/CakeCinema/app/webroot/img/cancel.png')";
+            buttonid.style.height = '24px';
+            buttonid.style.cursor = "pointer";
+
+
             ni.appendChild(ticketarea);
             ticketarea.appendChild(hallname);
             ticketarea.appendChild(newdiv);
             ticketarea.appendChild(ticket);
+            ticketarea.appendChild(button);
+            button.appendChild(buttonid);
 
             var test = document.getElementById("ID"+id);
             //alert(test.value);
@@ -224,7 +238,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
             document.getElementById("cenaog").innerHTML = cena_og;
 
             if(check == false) {
-                tab.push({id: $(this).data("id"), x: rzad, y: miejsce, type: "norm"}); // wpis do tablicy po click
+                tab.push({id: $(this).data("id"), x: rzad, y: miejsce, type: "Norm"}); // wpis do tablicy po click
                 // default set tab by type => norm(first click on seat)
                    // alert(tab[0]['type']);
 
@@ -233,7 +247,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
         }
         else
         {
-            $(this).addClass('miejsce').removeClass('NIE WYBRANO ŻADNYCH MIEJSC');
+            $(this).addClass('miejsce').removeClass('miejsce_wybrane');
             for(var i = 0; i < tab.length ; i++)
             {
                 if(tab[i].id == $(this).data("id"))
@@ -242,11 +256,6 @@ $miejsca = $hall['Hall']['count_seats'];?>
                     check = true;
                 }
             }
-            //if(check == false)
-          //  {
-            //    tab.push({id: $(this).data("id"),x: rzad,y: miejsce});
-           //     alert(tab[0]['type']);
-           // }
             wybrane--;
             var min = document.getElementById("ID"+id);
             cena_og = parseFloat(cena_og) - parseFloat(min.value);
@@ -295,6 +304,46 @@ $miejsca = $hall['Hall']['count_seats'];?>
             document.getElementById("cenaog").innerHTML = parseFloat(cena_og); // ustawianie ceny za all
         }
     };
+    function DeleteSelectedSeat(id)
+    {
+        var ww = document.querySelectorAll(".miejsce_wybrane"); //ww miejsce na stronie do skasowania
+        for(var i =0 ;i<ww.length;i++)
+        {
+            if(ww[i].getAttribute('data-id') == id)
+            {
+                ww[i].classList.remove('miejsce_wybrane');
+                ww[i].classList.add('miejsce');
+
+                for(var i = 0; i < tab.length ; i++)
+                {
+                    if(tab[i].id == id)
+                    {
+                        tab.splice(i,1);
+                        check = true;
+                    }
+                }
+                wybrane--;
+                var min = document.getElementById("ID"+id);
+                cena_og = parseFloat(cena_og) - parseFloat(min.value);
+                if(wybrane == 0  && cena_og == 0) {
+                    document.getElementById("ilosc").innerHTML = "NIE WYBRANO ŻADNYCH MIEJSC ";
+                    document.getElementById("iloscbi").innerHTML = 0;
+                    document.getElementById("cenaog").innerHTML = 0;
+                }
+                else {
+                    document.getElementById("iloscbi").innerHTML = wybrane;
+                    document.getElementById("cenaog").innerHTML = cena_og;
+                }
+
+                var d = document.getElementById('bilet');
+                var olddiv = document.getElementById(id);
+                d.removeChild(olddiv);
+            }
+        }
+
+    };
+
+
     $('.rezerwuj').click(function()
     {
         if(tab.length == 0)

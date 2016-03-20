@@ -19,6 +19,39 @@
 	margin:0;
 	padding:0;
 }
+#button
+{
+	position: relative;
+	margin-left: 94%;
+	margin-right: 26px;
+	height: 50px;
+	width: 24px;
+}
+#hallname,#tickettext
+{
+	float: left;
+	position: relative;
+	left:5%;
+}
+#hallname
+{
+	margin-right: 77px;
+	font-size: 21px;
+}
+#tickettext
+{
+	margin-left: 59px;
+	width: 223px;
+
+}
+
+#ticket
+{
+	float: left;
+	height: 40px;
+	position: relative;
+	left: 25%;
+}
 .opisleg
 {
 	padding-left: 5px;
@@ -183,8 +216,7 @@
 }
 #podB
 {
-	text-transform: uppercase;
-	font-size: 25px;
+	font-size: 21px;
 }
 .wybor-miejsca
 {
