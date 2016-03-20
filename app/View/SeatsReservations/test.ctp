@@ -182,8 +182,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
                     check = true;
                 }
             }
-            if(check == false)
-                tab.push({id: $(this).data("id"),x:rzad,y:miejsce});
+
 
             idx++;
             wybrane++;
@@ -207,7 +206,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
 
             var ticket = document.createElement('div');
             ticket.setAttribute('id','ticket');
-            ticket.innerHTML ="<select id=price onchange=getSelectionValue()>" +
+            ticket.innerHTML ="<select id=ID"+id+" onchange=getSelectionValue("+id+")>" +
                 "<option value="+cena_nor+">"+cena_nor+" PLN - Normalny</option>" +
                 "<option value="+cena_ulg+">"+cena_ulg+" PLN - Ulgowy</option>" +
                 "</select>";
@@ -217,12 +216,19 @@ $miejsca = $hall['Hall']['count_seats'];?>
             ticketarea.appendChild(newdiv);
             ticketarea.appendChild(ticket);
 
-            var test = document.getElementById('price');
+            var test = document.getElementById("ID"+id);
+            //alert(test.value);
             cena_og = parseFloat(cena_og) + parseFloat(test.value);
-
             document.getElementById("iloscbi").innerHTML = wybrane;
             document.getElementById("ilosc").innerHTML =  "";
             document.getElementById("cenaog").innerHTML = cena_og;
+
+            if(check == false) {
+                tab.push({id: $(this).data("id"), x: rzad, y: miejsce, type: "norm"}); // wpis do tablicy po click
+                // default set tab by type => norm(first click on seat)
+                   // alert(tab[0]['type']);
+
+            }
 
         }
         else
@@ -236,11 +242,14 @@ $miejsca = $hall['Hall']['count_seats'];?>
                     check = true;
                 }
             }
-            if(check == false)
-                tab.push({id: $(this).data("id"),x: rzad,y: miejsce});
-
+            //if(check == false)
+          //  {
+            //    tab.push({id: $(this).data("id"),x: rzad,y: miejsce});
+           //     alert(tab[0]['type']);
+           // }
             wybrane--;
-            cena_og = parseFloat(cena_og) - parseFloat(cena_nor);
+            var min = document.getElementById("ID"+id);
+            cena_og = parseFloat(cena_og) - parseFloat(min.value);
             if(wybrane == 0  && cena_og == 0) {
                 document.getElementById("ilosc").innerHTML = "NIE WYBRANO ŻADNYCH MIEJSC ";
                 document.getElementById("iloscbi").innerHTML = 0;
@@ -257,11 +266,18 @@ $miejsca = $hall['Hall']['count_seats'];?>
             d.removeChild(olddiv);
         }
     });
-    function getSelectionValue()
+    function getSelectionValue(id)
     {
-        var value = document.getElementById('price');
+        var value = document.getElementById("ID"+id); // value - wartosc selecta z rodzajem biletu, gdzie id=ID+id;
+
         if(value.value == cena_ulg)
         {
+
+            for(var i =0 ;i<tab.length;i++)
+            {
+                if(parseInt(tab[i]["id"]) == id)
+                    tab[i]["type"] = "Half"; // zmiana typu biletu na ulgowy
+            }
             cena_og = parseFloat(cena_og) - parseFloat(cena_nor);
             cena_og = parseFloat(cena_og) + parseFloat(cena_ulg);
             document.getElementById("cenaog").innerHTML = parseFloat(cena_og);
@@ -269,9 +285,14 @@ $miejsca = $hall['Hall']['count_seats'];?>
         }
         else
         {
+            for(var i =0 ;i<tab.length;i++)
+            {
+                if(parseInt(tab[i]["id"]) == id)
+                    tab[i]["type"] = "Norm"; // zmiana typu biletu na normalny
+            }
             cena_og = parseFloat(cena_og) -  parseFloat(cena_ulg);
             cena_og = parseFloat(cena_og) + parseFloat(cena_nor);
-            document.getElementById("cenaog").innerHTML = parseFloat(cena_og);
+            document.getElementById("cenaog").innerHTML = parseFloat(cena_og); // ustawianie ceny za all
         }
     };
     $('.rezerwuj').click(function()
@@ -285,7 +306,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
                 type: "POST",
                 data: {"Seat": tab, Screen_id:<?php echo $screen['Screen']['id']?>,Movie_id:<?php echo $screen['Screen']['Movies_id']?>,price:cena_og,
                 count:wybrane},
-                url: "/Cinema/Reservations/add/",
+                url: "/CakeCinema/Reservations/add/",
                 success: function () {
                     window.location.href = '../../reservations/indexuser';
                 }
