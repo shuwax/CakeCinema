@@ -7,7 +7,7 @@
 	<?php
 		echo $this->Form->input('Cinema',array('label' => 'Kino','empty'=>'Wybierz kino..'));
 	    echo $this->Form->input('Halls_id',array('label' => 'Sala','empty'=>true));
-	echo $this->Form->date('screening_date',array('label' => 'Data seansu'));
+	echo "Data Seansu".$this->Form->date('screening_date');
 	?>
 		<div id="rozklad">
 				<div id="sala"></div>
@@ -16,7 +16,7 @@
 		</div>
 
 		<?php
-		echo $this->Form->time('time',array('label' => 'Godzina'));
+		echo "Godzina seansu".$this->Form->time('time');
 		echo $this->Form->input('Movies_id',array('label' => 'Film','empty'=>'Wybierz film..'));
 		echo $this->Form->input('price_norm',array('label' => 'Cena za bilet normalny'));
 		echo $this->Form->input('price_hp',array('label' => 'Cena za bilet ulgowy'));
@@ -211,7 +211,7 @@
 			}
 			else
 			{
-				document.getElementById('status').innerText = 'Godziny dobrane odpowiedznio';
+				document.getElementById('status').innerText = 'Godziny dobrane odpowiednio';
 				document.getElementById('GodzinyKonflikt').style.backgroundColor = 'blue';
 				$('input[type="submit"]').prop('disabled', false);
 			}

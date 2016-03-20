@@ -32,11 +32,6 @@ class SeatsReservationsController extends AppController
         $this->set('movie',$this->Movie->findByid($screen['Screen']['Movies_id']));
         $this->set('cinema',$this->Cinema->findByid($hallid['Hall']['Cinemas_id']));
 
-
-
-
-
-
         $dane = $this->Screen->findByid($id);
         $filmid = $dane["Screen"]["Movies_id"];
         $this->set('screen',$dane);

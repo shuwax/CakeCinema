@@ -187,20 +187,42 @@ $miejsca = $hall['Hall']['count_seats'];?>
 
             idx++;
             wybrane++;
-            cena_og = parseFloat(cena_og) + parseFloat(cena_nor);
+
+
+            var ni = document.getElementById('bilet');
+
+            var ticketarea = document.createElement('div');
+            ticketarea.setAttribute('id',id);
+
+            var hallname = document.createElement('div');
+            hallname.setAttribute('id','hallname');
+            hallname.innerHTML = "<span><?php echo $hall['Hall']['name']?></span>";
+
+
+            var newdiv = document.createElement('div');
+            newdiv.setAttribute('id','tickettext');
+            //newdiv.style.textAlign = 'center';
+            newdiv.innerHTML = "<span id=podB>Rzad " +rzad+"Miejsce "+miejsce+"</span>";
+
+
+            var ticket = document.createElement('div');
+            ticket.setAttribute('id','ticket');
+            ticket.innerHTML ="<select id=price onchange=getSelectionValue()>" +
+                "<option value="+cena_nor+">"+cena_nor+" PLN - Normalny</option>" +
+                "<option value="+cena_ulg+">"+cena_ulg+" PLN - Ulgowy</option>" +
+                "</select>";
+
+            ni.appendChild(ticketarea);
+            ticketarea.appendChild(hallname);
+            ticketarea.appendChild(newdiv);
+            ticketarea.appendChild(ticket);
+
+            var test = document.getElementById('price');
+            cena_og = parseFloat(cena_og) + parseFloat(test.value);
+
             document.getElementById("iloscbi").innerHTML = wybrane;
             document.getElementById("ilosc").innerHTML =  "";
             document.getElementById("cenaog").innerHTML = cena_og;
-            var ni = document.getElementById('bilet');
-
-                var newdiv = document.createElement('div');
-
-                newdiv.setAttribute('id',id);
-                newdiv.style.textAlign = 'center';
-
-                newdiv.innerHTML = "<span id=podB>Rzad " +rzad+"Miejsce "+miejsce+cena_nor+"PLN "+"</span>";
-
-                ni.appendChild(newdiv);
 
         }
         else
@@ -235,6 +257,23 @@ $miejsca = $hall['Hall']['count_seats'];?>
             d.removeChild(olddiv);
         }
     });
+    function getSelectionValue()
+    {
+        var value = document.getElementById('price');
+        if(value.value == cena_ulg)
+        {
+            cena_og = parseFloat(cena_og) - parseFloat(cena_nor);
+            cena_og = parseFloat(cena_og) + parseFloat(cena_ulg);
+            document.getElementById("cenaog").innerHTML = parseFloat(cena_og);
+
+        }
+        else
+        {
+            cena_og = parseFloat(cena_og) -  parseFloat(cena_ulg);
+            cena_og = parseFloat(cena_og) + parseFloat(cena_nor);
+            document.getElementById("cenaog").innerHTML = parseFloat(cena_og);
+        }
+    };
     $('.rezerwuj').click(function()
     {
         if(tab.length == 0)
@@ -246,7 +285,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
                 type: "POST",
                 data: {"Seat": tab, Screen_id:<?php echo $screen['Screen']['id']?>,Movie_id:<?php echo $screen['Screen']['Movies_id']?>,price:cena_og,
                 count:wybrane},
-                url: "/Reservations/add/",
+                url: "/Cinema/Reservations/add/",
                 success: function () {
                     window.location.href = '../../reservations/indexuser';
                 }

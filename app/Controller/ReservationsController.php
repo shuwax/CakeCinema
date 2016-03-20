@@ -28,7 +28,7 @@ class ReservationsController extends AppController
     }
     public function indexuser()
     {
-        $dane = $this->Reservation->find('all');
+        $dane = $this->Reservation->find('all',array('order' => 'Reservation.id DESC'));
         $movies = $this->Movie->find('all');
         $halls = $this->Hall->find('all');
         $cinemas = $this->Cinema->find('all');
