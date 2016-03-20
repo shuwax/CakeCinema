@@ -103,7 +103,6 @@ class ReservationsController extends AppController
         $seatrezervation = $this->SeatsReservation->findByReservations_id($id);
 
         $screenid =  $seatrezervation['SeatsReservation']['Screening_id'];
-
         $screen = $this->Screen->findByid($screenid);
         $this->set('hall',$this->Hall->findByid($screen['Screen']['Halls_id']));
         $dane = $this->Screen->findByid($screenid);
@@ -128,19 +127,22 @@ class ReservationsController extends AppController
     public function seats($id = null)
     {
         $seatrezervation = $this->SeatsReservation->findByReservations_id($id);
-        $this->set('id',$this->Reservation->findByid($id));
-        CakeLog::write('debug', 'myArray22222'.print_r( $this->Reservation->findByid($id), true) );
-        $screenid =  $seatrezervation['SeatsReservation']['Screening_id'];
 
+        $this->set('id',$this->Reservation->findByid($id));
+        //CakeLog::write('debug', 'myArray22222'.print_r( $this->Reservation->findByid($id), true) );
+
+        $screenid =  $seatrezervation['SeatsReservation']['Screening_id'];
         $screen = $this->Screen->findByid($screenid);
+
+        $this->set('movie',$this->Movie->findByid($screen['Screen']['Movies_id']));
         $this->set('hall',$this->Hall->findByid($screen['Screen']['Halls_id']));
+        $hallid = $this->Hall->findByid($screen['Screen']['Halls_id']);
+        $this->set('cinema',$this->Cinema->findByid($hallid['Hall']['Cinemas_id']));
         $dane = $this->Screen->findByid($screenid);
         $this->set('screen',$dane);
-
         $hall_seat = $this->Seat->find('all', array(
             'conditions' => array('Seat.halls_id' => array($dane['Screen']['Halls_id']))));
         $this->set('seats',$hall_seat);
-
 
         $rez = $this->SeatsReservation->find('all', array(// miejsca zajete
             'conditions' => array('SeatsReservation.Screening_id' => array($screenid))));

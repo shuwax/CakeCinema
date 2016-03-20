@@ -212,16 +212,14 @@
 }
 .miejscaR
 {
-	background: gainsboro;
+	position: relative;
+	left: 29%;
 }
 #podB
 {
 	font-size: 21px;
 }
-.wybor-miejsca
-{
-	margin-left: 42%;
-}
+
 .calosc
 {
 	width: 100%;
