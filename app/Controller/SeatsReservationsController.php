@@ -47,7 +47,6 @@ class SeatsReservationsController extends AppController
          'conditions' => array('SeatsReservation.Screening_id' => array($id))));
           
           $this->set('rezs',$rez);
- }
-    
+ }  
 }
 

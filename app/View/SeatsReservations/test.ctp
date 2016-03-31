@@ -78,6 +78,7 @@ $miejsca = $hall['Hall']['count_seats'];?>
                                 <?php
                             }
                         }
+                        
                         if($wejsce != true) {
                             ?>
                             <div class="miejsce" data-id="<?php echo $seat['Seat']['id'] ?>">

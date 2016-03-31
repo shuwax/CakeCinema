@@ -87,8 +87,6 @@
                                             </div>
                                             <?php
                                         }
-
-
                                     }
                                     if($wejsce != true) {
                                         ?>

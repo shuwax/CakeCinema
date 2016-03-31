@@ -89,7 +89,6 @@ class MoviesController extends AppController {
 					   {
 						   $this->request->data['Movie']['filename'] = $dane['Movie']['filename'];
 					   }
-					   CakeLog::write('debug', 'myArray22222'.print_r($this->request->data, true) );
                        if($this->Movie->save($this->request->data))
                        {
                            $this->Flash->success('Film zedytowany.'); 

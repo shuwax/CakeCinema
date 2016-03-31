@@ -60,7 +60,7 @@
 
 
 		<div class="informacje-akcja">
-			<div class="informacje-edycja"><?php echo $this->Html->link(__('Modyfikuj'), array('action' => 'edit', $screen['Screen']['id'])); ?></div>
+			<div class="informacje-edycja"><?php echo $this->Html->link(__('Modyfikuj'), array('action' => 'edit', $reservation['Reservation']['id'])); ?></div>
 			<div class="informacje-usun"><?php echo $this->Form->postLink(__('Usuń'), array('action' => 'delete', $reservation['Reservation']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $reservation['Reservation']['id']))); ?></div>
 			<div class="informacje-pokaz"><?php echo $this->Html->link(__('Wykaz miejsc'), array('action' => 'seats', $reservation['Reservation']['id'])); ?></div>
 
