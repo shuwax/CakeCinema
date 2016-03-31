@@ -432,7 +432,7 @@
 		{
 			if(tab.length == 0)
 			{
-				alert("Nie wybrano miejsc do rezerwacji");
+				alert("Niee wybrano miejsc do rezerwacji");
 			}
 			else {
 				$.ajax({
