@@ -19,6 +19,29 @@
 	margin:0;
 	padding:0;
 }
+.Komunikat
+{
+
+	left: 31%;
+	font-size: 30px;
+	text-align: center;
+}
+
+#terminText
+{
+	position: relative;
+	top: 30%;
+}
+#innytermin
+{
+	background-color: #009DD0;
+	color: #FFFFFF;
+	font-weight: bold;
+	/height: 46px;
+	margin: 7px;
+	//padding: 10px 70px;
+	text-align: center;
+}
 #button
 {
 	position: relative;

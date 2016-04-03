@@ -34,9 +34,14 @@ class ScreeningController extends AppController
         $screen = $this->Screen->findByid($id);
         $hallid = $this->Hall->findByid($screen['Screen']['Halls_id']);
         $this->set('screen',$this->Screen->findByid($id));
+        $this->set('screening',$this->Screen->find('all'));
+        $this->set('movie_id',$screen['Screen']['Movies_id']);
         $this->set('hall',$this->Hall->findByid($screen['Screen']['Halls_id']));
         $this->set('movie',$this->Movie->findByid($screen['Screen']['Movies_id']));
         $this->set('cinema',$this->Cinema->findByid($hallid['Hall']['Cinemas_id']));
+        $this->set('halls',$this->Hall->find('all',array(
+            'conditions' => array('Hall.Cinemas_id' => $hallid['Hall']['Cinemas_id'])
+        )));
     }
 
 
