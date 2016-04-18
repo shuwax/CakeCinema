@@ -5,10 +5,7 @@
 	<title>Administrator | <?php echo $title_for_layout; ?></title>
 	<?php
 	echo $this->fetch('meta');
-	echo $this->Html->css(array('sb-admin.css'));
-	echo $this->Html->css(array('bootstrap.min.css'));
-	echo $this->Html->css(array('seatreservations'));
-
+	echo $this->Html->css(array('bootstrap.min'));
 	echo $this->fetch('css');
 	echo $this->fetch('script');
 	?>
@@ -16,9 +13,8 @@
 <body>
 <div id="container">
 	<?php echo $this->Html->script('jquery-2.2.1');?>
-	<?php echo $this->Html->script('bootstrap.min');?>
 
-	<?php echo $this->Element('adminmenu');?>
+	<?php echo $this->Element('login');?>
 	<div id="content">
 
 		<?php echo $this->Flash->render(); ?>

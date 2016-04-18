@@ -1,0 +1,263 @@
+.opisleg
+{
+	padding-left: 5px;
+	display: inline-block;
+	padding-top: 2px;
+	padding-right: 6px;
+}
+.zajete,.dostepne
+{
+	float: left;
+}
+.kwadrat
+{
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 1px;
+}
+.legenda
+{
+	height: 80px;
+}
+.legenda p
+{
+	padding-top: 10px;
+	color: #000;
+	font-weight: bold;
+}
+#bilet h2
+{
+	margin: 0 0 25px;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 23px;
+	color: black;
+}
+#cenaog
+{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	color: #009dd0;
+}
+#cenaog span
+{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 600;
+	color: #009dd0;
+}
+#iloscbi
+{
+	color: rgb(0, 0, 0);
+	padding-right: 20px;
+	display: inline-block;
+}
+#button
+{
+	position: relative;
+	margin-left: 94%;
+	margin-right: 26px;
+	height: 50px;
+	width: 24px;
+}
+#hallname,#tickettext
+{
+	float: left;
+	position: relative;
+	left:5%;
+}
+#hallname
+{
+	margin-right: 77px;
+	font-size: 21px;
+}
+#tickettext
+{
+	margin-left: 59px;
+	width: 223px;
+
+}
+#ticket
+{
+	float: left;
+	height: 40px;
+	position: relative;
+	left: 25%;
+}
+
+
+.calosc
+{
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	margin-top: 30px;
+	color: #565656;
+	font-size: 26px;
+}
+.Rbilet a
+{
+	color: white;
+	text-decoration: none;
+}
+.rezerwuj
+{
+	float: right !important;
+	width: 130px;
+	background: #009dd0;
+	height: 65px;
+	text-align: center;
+	font-size: 18px;
+
+}
+.info-prawo
+{
+	font-size: 17px;
+	float: left;
+}
+.seans-rezerwuj
+{
+	height: 66px;
+	background-color: gainsboro;
+}
+.rez-tytul
+{
+	position: relative;
+	font-size: 16px;
+	float: left;
+	left: 7px;
+	width: 300px;
+}
+.rezerwuj-lewo
+{
+	float: left;
+}
+.rez-zdejcie
+{
+	float: left;
+}
+.rez-zdejcie img
+{
+	height: 63px;
+	width: 65px;
+
+}
+.miejscaR
+{
+	position: relative;
+	left: 29%;
+}
+.rzad
+{
+	display: block;
+	margin-bottom: 4px;
+	overflow: hidden;
+	height: 20px;
+	width: 100%;
+}
+.nr-rzad
+{
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 1px;
+	background-color: #979797;
+	position: relative;
+	color: #FFF;
+}
+.nr-rzad span
+{
+	width: 100%;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 700;
+	display: inline-block;
+	/* position: absolute; */
+	line-height: 20px;
+	top: -1px;
+}
+.miejsce_wybraneLeg
+{
+	color: black!important;
+	background-color: #0CE9DC;
+	width: 20px;
+	height: 20px;
+	margin: 0 1px;
+}
+.miejsce{
+	width: 20px;
+	height: 20px;
+	background: #99CC00!important;
+	border-color:#99CC00;
+	float: left;
+	margin: 0 1px;
+}
+.miejsce_puste{
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 1px;
+	color: black!important;
+	background-color: white;
+}
+
+.miejsce_wybrane {
+	color: black!important;
+	background-color: #0CE9DC;
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin: 0 1px;
+}
+
+.miejsce span{
+	width: 100%;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 700;
+	display: inline-block;
+	/* position: absolute; */
+	line-height: 20px;
+	top: -1px;
+	color:white;
+	cursor:pointer;
+
+}
+.miejsce_puste span{
+	width: 100%;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 700;
+	display: inline-block;
+	/* position: absolute; */
+	line-height: 20px;
+	top: -1px;
+	cursor:pointer;
+}
+.miejsce_wybrane span{
+	width: 100%;
+	text-align: center;
+	font-size: 11px;
+	font-weight: 700;
+	display: inline-block;
+	/* position: absolute; */
+	line-height: 20px;
+	top: -1px;
+	cursor:pointer;
+}
+.miejsce_zajete
+{
+	width: 20px;
+	height: 20px;
+	float: left;
+	background: gray;
+	margin: 0 1px;
+}
+.rzad
+{
+	display: block;
+	margin-bottom: 4px;
+	overflow: hidden;
+	height: 20px;
+	width: 100%;
+}

@@ -1,0 +1,110 @@
+.thumbnail a>img, .thumbnail>img {
+	width: 253px !important;
+	height: 258px !important;
+	margin-right: auto;
+	margin-left: auto;
+}
+.event-dane
+{
+	margin-top: 29px;
+	padding-bottom: 24px;
+	border-bottom: 1px solid #e3e3e3;
+}
+.event-main
+{
+	margin-bottom: 21px;
+}
+.event-header
+{
+	border-bottom: 1px solid #e3e3e3;
+	text-align: center;
+}
+.event-date-right
+{
+	float: right;
+	width: 169px;
+	background: #e3e3e3;
+	text-align: center;
+}
+.day{
+	font-size: 21px;
+}
+.daynumber
+{
+	font-size: 44px;
+	margin: 45px;
+}
+.month
+{
+	font-size: 17px;
+}
+.godzina
+{
+	font-size: 24px;
+}
+.event-kupbilet-image
+{
+	float: left;
+}
+.event-kupbilet-image > img
+{
+	width: 82px;
+	max-height: 68px;
+}
+.event-kupbilet-text
+{
+	padding-left: 20px;
+	float: left;
+	position: relative;
+}
+.event-kupbilet-txt
+{
+	float: left;
+}
+.event-but-but
+{
+	float: right !important;
+	width: 174px;
+	background: #009dd0;
+	color: #FFF;
+}
+.event-but-but > span
+{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 700;
+	font-size: 17px;
+	width: 100%;
+	display: inline-block;
+	text-align: center;
+	line-height: 80px;
+	text-transform: uppercase;
+}
+.event-kupbilet-tittle
+{
+	font-weight: 700;
+	font-size: 16px;
+	color: #000;
+	line-height: 33px;
+}
+.event-box-opis-txt > h2
+{
+	font-size: 18px;
+	color: #565656;
+}
+.event-dane-left
+{
+	color: #565656;
+	font-size: 16px;
+	margin-bottom: 0;
+	line-height: 16px;
+}
+.img-responsive
+{
+	width: 359px;
+	height: 362px;
+}
+span > a
+{
+	color: #FFF;
+	text-decoration: none;
+}

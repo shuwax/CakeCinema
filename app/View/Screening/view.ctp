@@ -1,98 +1,203 @@
-<div class="seans-view">
-	<div class="seans-gora">
-				<div class="seans-zdjecie">
-					<?php echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Heroic Features - Start Bootstrap Template</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom CSS -->
+	<link href="css/heroic-features.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+
+<?php $data = $screen['Screen']['screening_date'];
+$dat = date('N', strtotime($data));
+$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
+$dzien = date('d', strtotime($data));
+?>
+
+<!-- Page Content -->
+<div class="container">
+	<hr>
+	<!-- /.row -->
+
+	<!-- Page Features -->
+	<div class="row event-box-main">
+
+		<div class="row event-main">
+
+			<div class="col-xs-12 event-box">
+				<div class="event-image">
+					<div class="col-md-4">
+						<a href="http://localhost/CakeCinema/files/movie/filename/<?php echo $movie['Movie']['id'].'/'.$movie['Movie']['filename']?>" data-lightbox="image-1" title="">
+							<img src="/CakeCinema/img/../files/movie/filename/<?php echo $movie['Movie']['id'].'/'.$movie['Movie']['filename']?>" class="img-responsive" alt="Deco Ensemble – piękno Nuevo Tango " itemprop="image">
+						</a>
+					</div>
 				</div>
-				<div class="seans-infoG">
+				<div class="event-content">
+						<div class="col-md-8">
+							<div class="event-header">
+									<h1>
+										<span itemprop="name"><?php echo $movie['Movie']['title']?></span>
+									</h1>
+							</div>
+							<div class="event-dane col-xs-12">
 
-					<div class="seans-head">
-						<span><?php echo $movie['Movie']['title']?></span>
-					</div>
+								<div class="event-dane-left col-xs-6">
+									<p class="event-txtheader">Organizator: <?php echo $cinema['Cinema']['name']?></p>
+									<p class="event-txtheader">Telefon: <?php echo $cinema['Cinema']['phone_number']?></p>
+									<p class="event-txtheader">E-mail: <?php echo $cinema['Cinema']['email']?></p>
+								</div>
+								<div class="event-date-right col-xs-2">
 
-					<div class="seans-kon">
-						<?php echo "Organizator: " ?> </br>
-						<?php echo $this->HTML->link($cinema['Cinema']['name'],array('controller'=>'Pages','action'=>'display'));?> </br>
-						<?php echo "Dane kontaktowe: " ?> </br>
-						<?php echo "Telefon: ".$cinema['Cinema']['phone_number']?> </br>
-						<?php echo "Email: ".$cinema['Cinema']['email']?> </br>
-					</div>
+									<span class="day"><?php echo $dni_tygodnia[$dat-1]?></span>
+									<span class="daynumber"><?php echo  $dzien?></span>
+									<?php
+									$dzien = date('m Y', strtotime($data));
+									$dzien2 = date('Y', strtotime($data));
+									$miesiac = array('Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień');
+									?>
+									<span class="month"><?php echo $miesiac[$dzien-1].' '.$dzien2;?></span>
+									<span class="godzina"><?php echo substr($screen['Screen']['time'],0,5)?></span>
 
-					<div class="data">
-						<?php $data = $screen['Screen']['screening_date'];
-						$dat = date('N', strtotime($data));
-						$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
-						$dzien = date('d', strtotime($data));
-						?>
-							<div class="tydzien"><?php echo $dni_tygodnia[$dat-1]?></div>
-							<div class="dzien"><?php echo  $dzien?></div>
-						<div class="Miesiacrok"><?php
-							$dzien = date('m Y', strtotime($data));
-							$dzien2 = date('Y', strtotime($data));
-							$miesiac = array('Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień');
-							echo $miesiac[$dzien-1].' '.$dzien2;
-							?></div>
-						<div class="godzina"><?php echo substr($screen['Screen']['time'],0,5)?></div>
-					</div>
-
+								</div>
+							</div>
+						</div>
 				</div>
-	</div>
-
-<?php
-	//echo date("H:i:s");
-	//echo $screen['Screen']['screening_date'];
-	//echo $screen['Screen']['screening_date'];
-	$DData = date("Y-m-d");
-	$DTime = date('H:i:s');
-	if( date("Y-m-d") <= $screen['Screen']['screening_date'] ):
-	?>
-		<?php if($screen['Screen']['time']>= date('H:i:s')):?>
-	<div class="seans-rezerwuj">
-		<div class="rezerwuj-lewo">
-			<div class="rez-zdejcie">
-
-				<?php
-				echo $this->Html->image('../files/movie/filename/'.$movie['Movie']['id'].'/'.$movie['Movie']['filename']);?>
-			</div>
-			<div class="rez-tytul">
-				<span><?php echo $movie['Movie']['title']?></span></br>
-				<span><?php echo $cinema['Cinema']['name']?></span>
 			</div>
 		</div>
 
-		<div class="rezrwuj-prawo">
-			<div class="info-prawo">
-				<?php
-				$dzien = date('N', strtotime($data));
-				$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
-				?>
-				<span><?php echo $dzien = date('Y-m-d', strtotime($data)).', godz. '.$screen['Screen']['time']. ' ('.$dni_tygodnia[$dzien-1].')';?></span></br>
-
-
-					<span><?php echo $cinema['Cinema']['city']?></span></br>
-					<span><?php echo $cinema['Cinema']['adress']?></span>
-			</div>
-			<div class="rezerwuj">
-				<span class="Rbilet"><?php echo "</br>".$this->Html->link(__('Rezerwuj Bilet'), array('controller' => 'seatsreservations','action' => 'test',$screen['Screen']['id'])); ?></span>
-			</div>
+		<?php
+		echo date("H:i:s")."    ";
+		echo $screen['Screen']['screening_date']."    ";
+		echo date("Y-m-d")."    ";
+		$DData = date("Y-m-d");
+		$DTime = date('H:i:s');
+		if( date("Y-m-d") < $screen['Screen']['screening_date'] ):
+		?>
+		<div class="container-kupbilet col-xs-12">
+				<div class="event-kupbilet-left col-xs-5 col-md 5">
+					<div class="event-kupbilet-image">
+						<img src="/CakeCinema/img/../files/movie/filename/<?php echo $movie['Movie']['id'].'/'.$movie['Movie']['filename']?>" alt="">
+					</div>
+					<div class="event-kupbilet-text">
+						<span class="event-kupbilet-tittle" itemprop="name"><?php echo $movie['Movie']['title']?> </span></br>
+						<span class="event-kupbilet-subtittle"><?php echo $cinema['Cinema']['name']?> </span>
+					</div>
 				</div>
+				<div class="event-kupbilet-right col-xs-7 col-md 7">
+					<div class="event-kupbilet-txt">
+						<span class="event-but-txt-godz">
+							<?php
+							$dzien = date('N', strtotime($data));
+							$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
+							?>
+							<span class="semibold"><?php echo date('Y-m-d', strtotime($data));?>,</span>
+							godz. <span class="semibold"><?php echo $screen['Screen']['time']?> </span> (<?php echo $dni_tygodnia[$dzien-1]?>)
+						</span></br>
+						<span class="event-but-txt-places"><?php echo $cinema['Cinema']['city']?></span></br>
+						<span class="event-but-txt-name"><?php echo $cinema['Cinema']['adress']?></span></br>
+					</div>
 
+						<div class="event-but-but">
+							<span><?php echo $this->Html->link(__('Rezerwuj Bilet'), array('controller' => 'seatsreservations','action' => 'test',$screen['Screen']['id'])); ?></span>
+					</div>
+					</a>
+				</div>
+		</div>
 	</div>
-		<?php endif?>
 	<?php endif?>
+
+	<?php if( date("Y-m-d") == $screen['Screen']['screening_date'] ):
+	?>
+	<?php if($screen['Screen']['time'] >= date('H:i:s')):?>
+	<div class="container-kupbilet col-xs-12">
+		<div class="event-kupbilet-left col-xs-5 col-md 5">
+			<div class="event-kupbilet-image">
+				<img src="/CakeCinema/img/../files/movie/filename/<?php echo $movie['Movie']['id'].'/'.$movie['Movie']['filename']?>" alt="">
+			</div>
+			<div class="event-kupbilet-text">
+				<span class="event-kupbilet-tittle" itemprop="name"><?php echo $movie['Movie']['title']?> </span></br>
+				<span class="event-kupbilet-subtittle"><?php echo $cinema['Cinema']['name']?> </span>
+			</div>
+		</div>
+		<div class="event-kupbilet-right col-xs-7 col-md 7">
+			<div class="event-kupbilet-txt">
+						<span class="event-but-txt-godz">
+							<?php
+							$dzien = date('N', strtotime($data));
+							$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
+							?>
+							<span class="semibold"><?php echo date('Y-m-d', strtotime($data));?>,</span>
+							godz. <span class="semibold"><?php echo $screen['Screen']['time']?> </span> (<?php echo $dni_tygodnia[$dzien-1]?>)
+						</span></br>
+				<span class="event-but-txt-places"><?php echo $cinema['Cinema']['city']?></span></br>
+				<span class="event-but-txt-name"><?php echo $cinema['Cinema']['adress']?></span></br>
+			</div>
+
+			<div class="event-but-but">
+				<span><?php echo $this->Html->link(__('Rezerwuj Bilet'), array('controller' => 'seatsreservations','action' => 'test',$screen['Screen']['id'])); ?></span>
+			</div>
+			</a>
+		</div>
+	</div>
+</div>
+<?php endif?>
+<?php endif?>
 
 
 	<div id="innytermin">
 		<span id="terminText">sprawdź inne terminy</span>
 	</div>
 
-
-	<div class="opis">
-			<h1>Opis: </h1>
-		<span><?php echo $movie['Movie']['description']?></span></br>
-
+	<div class="event-box-opis col-xs-12">
+		<div class="event-box-opis-txt col-xs-12">
+			<h2>Opis wydarzenia:</h2>
+				<?php echo $movie['Movie']['description']?>
+		</div>
 	</div>
-</div>
+	<!-- /.row -->
 
+	<hr>
+
+	<!-- Footer
+	<footer>
+		<div class="row">
+			<div class="col-lg-12">
+				<p>Copyright &copy; Your Website 2014</p>
+			</div>
+		</div>
+	</footer>
+		 -->
+</div>
+<!-- /.container -->
+
+<!-- jQuery -->
+
+
+<!-- Bootstrap Core JavaScript -->
+
+</body>
+
+</html>
 
 <script>
 	var tablicasall = <?php echo json_encode($halls)?>;
@@ -107,8 +212,6 @@
 	var zdjecie = <?php echo json_encode($movie['Movie']['filename'])?>;
 
 	$('#innytermin').click(function() {
-
-
 		var ndiv = document.getElementById('innytermin');
 		var glowny = document.getElementsByClassName('seans-view');
 		var terminy = document.createElement('div');
@@ -118,71 +221,74 @@
 
 		terminy.className = terminy;
 		var usun = document.getElementById('innytermin');
-		var clasausun = document.getElementsByClassName('seans-rezerwuj');
+		var clasausun = document.getElementsByClassName('container-kupbilet col-xs-12');
 
 		if(clasausun[0] != undefined)
-		clasausun[0].remove();
+			clasausun[0].remove();
 		usun.remove();
 		var wejscie = 0;
-	for(var i =0 ;i<tablicasall.length;i++)
-	{
-
-		for(var j=0;j<tablicasenasow.length;j++)
+		for(var i =0 ;i<tablicasall.length;i++)
 		{
-			if(tablicasenasow[j]['Screen']['Halls_id'] == tablicasall[i]['Hall']['id'] &&
-				tablicasenasow[j]['Screen']['Movies_id'] == filmid)
+
+			for(var j=0;j<tablicasenasow.length;j++)
 			{
-				if(tablicasenasow[j]['Screen']['screening_date'] >= DData) {
-					if(tablicasenasow[j]['Screen']['screening_date'] >= DTime) {
+				if(tablicasenasow[j]['Screen']['Halls_id'] == tablicasall[i]['Hall']['id'] &&
+					tablicasenasow[j]['Screen']['Movies_id'] == filmid)
+				{
+					if(tablicasenasow[j]['Screen']['screening_date'] >= DData) {
+						if(tablicasenasow[j]['Screen']['screening_date'] >= DTime) {
 
-						wejscie++;
+							wejscie++;
 
-						var seansrezerwuj = document.createElement('div');
-						seansrezerwuj.className = "seans-rezerwuj";
+							var seansrezerwuj = document.createElement('div');
+							seansrezerwuj.className = "container-kupbilet col-xs-12";
 
-						var rezerwujlewo = document.createElement('div');
-						rezerwujlewo.className = "rezerwuj-lewo";
-
-
-						var rezzdejcie = document.createElement('div');
-						rezzdejcie.className = "rez-zdejcie";
-						//POPRAW !!!
-						rezzdejcie.innerHTML = '<img src="/CakeCinema/img/../files/movie/filename/' + filmid + '/' + zdjecie + '" alt="">';
-
-						var reztytul = document.createElement('div');
-						reztytul.className = "rez-tytul";
-						reztytul.innerHTML = '<span>' + tytul + '</span><br><span>' + nazwakina + '</span>';
+							var rezerwujlewo = document.createElement('div');
+							rezerwujlewo.className = "event-kupbilet-left col-xs-5 col-md 5";
 
 
-						var rezrwujprawo = document.createElement('div');
-						rezrwujprawo.className = "rezrwuj-prawo";
+							var rezzdejcie = document.createElement('div');
+							rezzdejcie.className = "event-kupbilet-image";
+							//POPRAW !!!
+							rezzdejcie.innerHTML = '<img src="/CakeCinema/img/../files/movie/filename/' + filmid + '/' + zdjecie + '" alt="">';
+
+							var reztytul = document.createElement('div');
+							reztytul.className = "event-kupbilet-text";
+
+							reztytul.innerHTML = '<span class="event-kupbilet-tittle" itemprop="name">' + tytul + '</span><br>' +
+								'<span class="event-kupbilet-subtittle">' + nazwakina + '</span>';
 
 
-						var infoprawo = document.createElement('div');
-						infoprawo.className = "info-prawo";
-						infoprawo.innerHTML = "<span>" + tablicasenasow[j]['Screen']['screening_date'] + ", godz. " + tablicasenasow[j]['Screen']['time'] + " (" + dzientygodnia(tablicasenasow[j]['Screen']['screening_date']) + ")</span><br><span>" + miasto + "</span><br><span>" + adress + "</span>";
 
-						var rezerwuj = document.createElement('div');
-						rezerwuj.className = "rezerwuj";
-
-						var Rbilet = document.createElement('div');
-						Rbilet.className = "Rbilet";
-						Rbilet.innerHTML = '<br><a href="/CakeCinema/seatsreservations/test/' + tablicasenasow[j]['Screen']['id'] + '">Rezerwuj Bilet</a>';
+							var rezrwujprawo = document.createElement('div');
+							rezrwujprawo.className = "event-kupbilet-right col-xs-7 col-md 7";
 
 
-						$(".seans-gora").after($(seansrezerwuj));
-						seansrezerwuj.appendChild(rezerwujlewo);
-						rezerwujlewo.appendChild(rezzdejcie);
-						rezerwujlewo.appendChild(reztytul);
-						seansrezerwuj.appendChild(rezrwujprawo);
-						rezrwujprawo.appendChild(infoprawo);
-						rezrwujprawo.appendChild(rezerwuj);
-						rezerwuj.appendChild(Rbilet);
+							var infoprawo = document.createElement('div');
+							infoprawo.className = "event-kupbilet-txt";
+							infoprawo.innerHTML = "<span>" + tablicasenasow[j]['Screen']['screening_date'] + ", godz. " + tablicasenasow[j]['Screen']['time'] + " (" + dzientygodnia(tablicasenasow[j]['Screen']['screening_date']) + ")</span><br><span>" + miasto + "</span><br><span>" + adress + "</span>";
+
+							var rezerwuj = document.createElement('div');
+							rezerwuj.className = "rezerwuj";
+
+							var Rbilet = document.createElement('div');
+							Rbilet.className = "Rbilet";
+							Rbilet.innerHTML = '<br><a href="/CakeCinema/seatsreservations/test/' + tablicasenasow[j]['Screen']['id'] + '">Rezerwuj Bilet</a>';
+
+
+							$(".seans-gora").after($(seansrezerwuj));
+							seansrezerwuj.appendChild(rezerwujlewo);
+							rezerwujlewo.appendChild(rezzdejcie);
+							rezerwujlewo.appendChild(reztytul);
+							seansrezerwuj.appendChild(rezrwujprawo);
+							rezrwujprawo.appendChild(infoprawo);
+							rezrwujprawo.appendChild(rezerwuj);
+							rezerwuj.appendChild(Rbilet);
+						}
 					}
 				}
 			}
 		}
-	}
 		if(wejscie == 0 )
 		{
 			var komunikat =  document.createElement('div');
@@ -200,3 +306,4 @@
 	}
 
 </script>
+

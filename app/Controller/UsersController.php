@@ -23,13 +23,16 @@ class UsersController extends AppController {
     
     
     public function login() {
+		$this->layout = 'login';
     if ($this->request->is('post')) {
         if ($this->Auth->login()) {
 			$this->redirect(array('controller' => 'Pages','action' => 'display'));
         }
         $this->Flash->error(__('Invalid username or password, try again'));
+		$this->redirect(array('controller' => 'Users','action' => 'login'));
     }
 }
+
 
 public function logout() {
     $this->Auth->logout();
@@ -71,11 +74,25 @@ public function logout() {
  * @return void
  */
 	public function admin_add() {
+		
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->Flash->success(__('The user has been saved.'));
 				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Flash->error(__('The user could not be saved. Please, try again.'));
+			}
+		}
+	}
+	
+	public function add() {
+		$this->layout = 'login';
+		if ($this->request->is('post')) {
+			$this->User->create();
+			if ($this->User->save($this->request->data)) {
+				$this->Flash->success(__('The user has been saved.'));
+				return $this->redirect(array('controller' => 'Pages','action' => 'display'));
 			} else {
 				$this->Flash->error(__('The user could not be saved. Please, try again.'));
 			}
