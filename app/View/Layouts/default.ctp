@@ -18,6 +18,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 	echo $this->Html->css('bootstrap');
 	echo $this->Html->css('bootstrap.min');
+	echo $this->Html->css('modern-business');
+
 	echo $this->Html->css('heroic-features');
 	echo $this->Html->css('screeningview');
 	echo $this->Html->css('seatreservations');
@@ -31,7 +33,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
 
 	<?php echo $this->Html->script('jquery-2.2.1');?>
-
 	<?php echo $this->Element('menu');?>
 		<?php echo $this->Flash->render(); ?>
 		<?php echo $this->fetch('content'); ?>

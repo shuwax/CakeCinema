@@ -23,7 +23,22 @@
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
+	<style>
+		#innytermin
+		{
+			background-color: #009DD0;
+			color: #FFFFFF;
+			font-weight: bold;
+			height: 46px;
+			margin: 7px;
+			padding: 10px 70px;
+			text-align: center;
+		}
+		.container-kupbilet
+		{
+			margin-bottom: 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -86,9 +101,7 @@ $dzien = date('d', strtotime($data));
 		</div>
 
 		<?php
-		echo date("H:i:s")."    ";
-		echo $screen['Screen']['screening_date']."    ";
-		echo date("Y-m-d")."    ";
+
 		$DData = date("Y-m-d");
 		$DTime = date('H:i:s');
 		if( date("Y-m-d") < $screen['Screen']['screening_date'] ):
@@ -124,6 +137,10 @@ $dzien = date('d', strtotime($data));
 				</div>
 		</div>
 	</div>
+	<?php
+	$dzien = date('N', strtotime($data));
+	$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
+	?>
 	<?php endif?>
 
 	<?php if( date("Y-m-d") == $screen['Screen']['screening_date'] ):
@@ -142,12 +159,10 @@ $dzien = date('d', strtotime($data));
 		<div class="event-kupbilet-right col-xs-7 col-md 7">
 			<div class="event-kupbilet-txt">
 						<span class="event-but-txt-godz">
-							<?php
-							$dzien = date('N', strtotime($data));
-							$dni_tygodnia = array('Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota','Niedziela');
-							?>
 							<span class="semibold"><?php echo date('Y-m-d', strtotime($data));?>,</span>
-							godz. <span class="semibold"><?php echo $screen['Screen']['time']?> </span> (<?php echo $dni_tygodnia[$dzien-1]?>)
+							godz. 
+							<span class="semibold"><?php echo $screen['Screen']['time']?> </span>
+							(<?php echo $dni_tygodnia[$dzien-1]?>)
 						</span></br>
 				<span class="event-but-txt-places"><?php echo $cinema['Cinema']['city']?></span></br>
 				<span class="event-but-txt-name"><?php echo $cinema['Cinema']['adress']?></span></br>
@@ -164,9 +179,16 @@ $dzien = date('d', strtotime($data));
 <?php endif?>
 
 
-	<div id="innytermin">
-		<span id="terminText">sprawdź inne terminy</span>
+<div class="col-xs-12">
+	<div class="col-xs-3"></div>
+	<div class="col-xs-6">
+		<div id="innytermin">
+			<span id="terminText">sprawdź inne terminy</span>
+		</div>
 	</div>
+	<div class="col-xs-3"></div>
+
+</div>
 
 	<div class="event-box-opis col-xs-12">
 		<div class="event-box-opis-txt col-xs-12">
@@ -213,7 +235,7 @@ $dzien = date('d', strtotime($data));
 
 	$('#innytermin').click(function() {
 		var ndiv = document.getElementById('innytermin');
-		var glowny = document.getElementsByClassName('seans-view');
+		var glowny = document.getElementsByClassName('row event-main');
 		var terminy = document.createElement('div');
 		var DData = <?php echo json_encode($DData)?>;
 		var DTime = <?php echo json_encode($DTime)?>;
@@ -239,7 +261,6 @@ $dzien = date('d', strtotime($data));
 						if(tablicasenasow[j]['Screen']['screening_date'] >= DTime) {
 
 							wejscie++;
-
 							var seansrezerwuj = document.createElement('div');
 							seansrezerwuj.className = "container-kupbilet col-xs-12";
 
@@ -266,24 +287,25 @@ $dzien = date('d', strtotime($data));
 
 							var infoprawo = document.createElement('div');
 							infoprawo.className = "event-kupbilet-txt";
-							infoprawo.innerHTML = "<span>" + tablicasenasow[j]['Screen']['screening_date'] + ", godz. " + tablicasenasow[j]['Screen']['time'] + " (" + dzientygodnia(tablicasenasow[j]['Screen']['screening_date']) + ")</span><br><span>" + miasto + "</span><br><span>" + adress + "</span>";
+							infoprawo.innerHTML = '<span class="event-but-txt-godz">' + tablicasenasow[j]['Screen']['screening_date']
+								+'</span>'+", godz. "+
+							'<span class="semibold">'+ tablicasenasow[j]['Screen']['time'] +'</span>'+ " (" + dzientygodnia(tablicasenasow[j]['Screen']['screening_date']) +
+								')</span><br><span class="event-but-txt-places">' + miasto + '</span><br><span class="event-but-txt-name">' + adress + "</span>";
+
 
 							var rezerwuj = document.createElement('div');
-							rezerwuj.className = "rezerwuj";
-
-							var Rbilet = document.createElement('div');
-							Rbilet.className = "Rbilet";
-							Rbilet.innerHTML = '<br><a href="/CakeCinema/seatsreservations/test/' + tablicasenasow[j]['Screen']['id'] + '">Rezerwuj Bilet</a>';
+							rezerwuj.className = "event-but-but";
+							rezerwuj.innerHTML = '<span><a href="/CakeCinema/seatsreservations/test/' + tablicasenasow[j]['Screen']['id'] + '">Rezerwuj Bilet</a></span>';
 
 
-							$(".seans-gora").after($(seansrezerwuj));
+
+							$(glowny).after($(seansrezerwuj));
 							seansrezerwuj.appendChild(rezerwujlewo);
 							rezerwujlewo.appendChild(rezzdejcie);
 							rezerwujlewo.appendChild(reztytul);
 							seansrezerwuj.appendChild(rezrwujprawo);
 							rezrwujprawo.appendChild(infoprawo);
 							rezrwujprawo.appendChild(rezerwuj);
-							rezerwuj.appendChild(Rbilet);
 						}
 					}
 				}
@@ -294,7 +316,7 @@ $dzien = date('d', strtotime($data));
 			var komunikat =  document.createElement('div');
 			komunikat.className = 'Komunikat';
 			komunikat.innerHTML ='<span id="terminText">Brak dostepnych terminow</span>';
-			$('.seans-gora').after($(komunikat));
+			$(glowny).after($(komunikat));
 		}
 	});
 	function dzientygodnia (data) {

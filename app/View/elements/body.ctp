@@ -13,6 +13,10 @@ CakeLog::write('debug', 'myArray22222'.print_r( $cinemas, true) );
  <html lang="en">
 
 <style>
+    #myCarousel
+    {
+        top: -19px;
+    }
     .thumbnail a>img, .thumbnail>img {
         width: 253px !important;
         height: 258px !important;
@@ -43,20 +47,69 @@ CakeLog::write('debug', 'myArray22222'.print_r( $cinemas, true) );
      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
      <![endif]-->
 
+
  </head>
 
  <body>
 
+ <!-- Header Carousel -->
+ <header id="myCarousel" class="carousel slide">
+     <!-- Indicators -->
+     <?php $ilosc=0?>
+     <?php $iloscs=1?>
+     <ol class="carousel-indicators">
+         <?php foreach ($screening as $screen):?>
+             <?php foreach($movies as $movie): ?>
+                 <?php if($screen['Screen']['Movies_id'] == $movie['Movie']['id'] ):?>
+                     <li data-target="<?php echo "#myCarouse".$iloscs?>" data-slide-to="0" class="active"></li>
+                     <?php $iloscs++?>
+                 <?php endif?>
+             <?php endforeach;?>
+         <?php endforeach;?>
+     </ol>
+     <!-- Wrapper for slides -->
+     <div class="carousel-inner">
+         <?php foreach ($screening as $screen):?>
+            <?php foreach($movies as $movie): ?>
+                <?php if($screen['Screen']['Movies_id'] == $movie['Movie']['id'] ):?>
+
+                    <?php if($ilosc == 0):?>
+                         <div class="item active">
+                             <div class="fill" style="background-image:url('/CakeCinema/img/../files/movie/filename/<?php echo $movie['Movie']['id'].'/'.$movie['Movie']['filename']?>');"></div>
+                             <div class="carousel-caption">
+                                 <h2><?php echo $movie['Movie']['title']?></h2>
+                             </div>
+                         </div>
+                     <?php endif;?>
+
+                     <?php if($ilosc !=0):?>
+                         <div class="item">
+                             <div class="fill" style="background-image:url('/CakeCinema/img/../files/movie/filename/<?php echo $movie['Movie']['id'].'/'.$movie['Movie']['filename']?>');"></div>
+                             <div class="carousel-caption">
+                                 <h2><?php echo $movie['Movie']['title']?></h2>
+                             </div>
+                         </div>
+                     <?php endif;?>
+                     <?php $ilosc++?>
+                 <?php endif?>
+             <?php endforeach;?>
+         <?php endforeach;?>
+
+     </div>
+
+     <!-- Controls -->
+     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+         <span class="icon-prev"></span>
+     </a>
+     <a class="right carousel-control" href="#myCarousel" data-slide="next">
+         <span class="icon-next"></span>
+     </a>
+ </header>
+
+
+
  <!-- Page Content -->
  <div class="container">
-
-     <!-- Jumbotron Header -->
-     <header class="jumbotron hero-spacer">
-         <h1>A Warm Welcome!</h1>
-         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo aspernatur vitae fugiat numquam repellat.</p>
-         <p><a class="btn btn-primary btn-large">Call to action!</a>
-         </p>
-     </header>
 
      <hr>
 
@@ -97,9 +150,7 @@ CakeLog::write('debug', 'myArray22222'.print_r( $cinemas, true) );
                              </div>
                          </div>
                      </div>
-
-
-         <?php endif?>
+                 <?php endif?>
          <?php endforeach;?>
          <?php endforeach;?>
 
@@ -131,6 +182,13 @@ CakeLog::write('debug', 'myArray22222'.print_r( $cinemas, true) );
 
  <!-- Bootstrap Core JavaScript -->
  <script src="js/bootstrap.min.js"></script>
+
+ <!-- Script to Activate the Carousel -->
+ <script>
+     $('.carousel').carousel({
+         interval: 5000 //changes the speed
+     })
+ </script>
 
  </body>
 
