@@ -104,8 +104,9 @@ class HallsController extends AppController {
             $this->set('hall',$hall);
             $this->set('seats',$hall_seat);
         $this->set('zmiana',0);
-        if($this->request->is(array('put')))
-        {   
+        if($this->request->is(array('put','post')))
+        {
+            CakeLog::write('debug', 'myArray22222'.print_r( $this->data, true) );
             if(!empty($this->data))
             {    
                 if($this->Seat->saveAll($this->data['Seat']))

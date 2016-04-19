@@ -168,6 +168,8 @@
         var tab =[];
         var idx = 0;
         var check = false;
+        var s = <?php  echo json_encode($this->Html->url(array('controller'=>'Halls','action'=>'admin_setseats'), true))?>;
+        var w =1;
         function  disableselect()
         {
             document.getElementsByClassName("rzad").disabled = true;
@@ -216,7 +218,7 @@
                 $.ajax({
                 type:"POST",
                 data:{"Seat":tab},
-                url:"/halls/action/",
+                url:s,
                 success: function()
                 {
                     window.location.href = "../";
