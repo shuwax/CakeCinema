@@ -372,7 +372,6 @@
 			}
 		}
 		dostepny();
-
 	});
 
 </script>

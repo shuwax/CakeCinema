@@ -318,8 +318,6 @@
 				}
 				else
 				{
-					alert(godzminINRoz);
-					alert(godzminINZAK);
 					document.getElementById('status').innerText = 'Godziny dobrane odpowiednio';
 					document.getElementById('GodzinyKonflikt').style.backgroundColor = 'blue';
 					$('input[type="submit"]').prop('disabled', false);

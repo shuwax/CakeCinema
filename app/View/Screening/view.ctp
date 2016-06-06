@@ -257,9 +257,8 @@ $dzien = date('d', strtotime($data));
 				if(tablicasenasow[j]['Screen']['Halls_id'] == tablicasall[i]['Hall']['id'] &&
 					tablicasenasow[j]['Screen']['Movies_id'] == filmid)
 				{
-					if(tablicasenasow[j]['Screen']['screening_date'] >= DData) {
-						if(tablicasenasow[j]['Screen']['screening_date'] >= DTime) {
-
+					if(tablicasenasow[j]['Screen']['screening_date'] > DData || (tablicasenasow[j]['Screen']['screening_date'] ==
+						DData && tablicasenasow[j]['Screen']['time'] >= DTime)) {
 							wejscie++;
 							var seansrezerwuj = document.createElement('div');
 							seansrezerwuj.className = "container-kupbilet col-xs-12";
@@ -306,7 +305,6 @@ $dzien = date('d', strtotime($data));
 							seansrezerwuj.appendChild(rezrwujprawo);
 							rezrwujprawo.appendChild(infoprawo);
 							rezrwujprawo.appendChild(rezerwuj);
-						}
 					}
 				}
 			}

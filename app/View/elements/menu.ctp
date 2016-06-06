@@ -1,20 +1,3 @@
-<?php /*
-<ul>
-    <li><?php echo $this->HTML->link('Home',array('controller'=>'Pages','action'=>'display'));?></li>
-    <li><?php echo $this->HTML->link('Kina',array('controller'=>'Pages','action'=>'display'));?></li>
-    <li><?php echo $this->HTML->link('Kategorie',array('controller'=>'Pages','action'=>'display'));?></li>
-    <li><?php echo $this->HTML->link('Kontakt',array('controller'=>'Pages','action'=>'display'));?></li>
-    <?php if(AuthComponent::user()) :?>
-        <li><?php echo $this->HTML->link('Twoje rezerwacje',array('controller'=>'reservations','action'=>'indexuser'));?></li>
-        <li><?php echo $this->HTML->link('Wyloguj',array('controller'=>'Users','action'=>'logout'));?></li>
-    <?php endif?>
-    <?php if(!AuthComponent::user()) :?>
-        <li><?php echo $this->HTML->link('Zaloguj',array('controller'=>'Users','action'=>'login'));?></li>
-    <?php endif?>
-</ul>
-*/?>
-
-
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">

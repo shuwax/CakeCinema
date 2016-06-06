@@ -15,10 +15,8 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 
 	<!-- Custom CSS -->
-	<link href="css/sb-admin.css" rel="stylesheet">
-
+	
 	<!-- Custom Fonts -->
-	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,7 +42,6 @@
 					<h1 class="page-header">
 						Spis Twoich Rezerwacji
 					</h1>
-					</ol>
 				</div>
 			</div>
 			<!-- /.row -->
@@ -61,10 +58,10 @@
 						</thead>
 						<tbody>
 						<?php foreach ($reservations  as $reservation): ?>
+							<?php if($reservation['Reservation']['Users_id'] == AuthComponent::user('id')):?>
 							<tr>
-
 								<?php foreach ($movies as $movie): ?>
-									<?php if($movie['Movie']['id'] == $reservation['Reservation']['Movies_id'])
+									<?php if($movie['Movie']['id'] == $reservation['Reservation']['Movies_id'] )
 									{
 										?> <td> <?php echo $movie['Movie']['title'];?></td><?php
 									}
@@ -89,6 +86,7 @@
 									<?php echo $this->Form->postLink(__('Usuń rezerwacje'), array('controller'=>'/Reservations','action' => 'delete', $reservation['Reservation']['id']),array('class' => 'btn btn-danger'), array('confirm' => __('Are you sure you want to delete # %s?', $reservation['Reservation']['id']))); ?>
 								</td>
 							</tr>
+						<?php endif?>
 						<?php endforeach; ?>
 
 						</tbody>

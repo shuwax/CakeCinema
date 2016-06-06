@@ -5,4 +5,13 @@
         echo "statusR ".$reservation['Reservation']['statusR']."</br>";
         echo "Screening_id ".$reservation['Reservation']['Screening_id']."</br>";
         echo "Movies_id ".$reservation['Reservation']['Movies_id']."</br>";
-    
+
+?>
+
+<title></title>
+<h1></h1>
+<br/>
+
+<script>
+
+</script>
